@@ -1,0 +1,44 @@
+/* CSS for screens with a maximum width of 320 pixels */
+@media (max-width: 320px) {
+  .nav {
+    margin: 0.4rem 0rem;
+    padding: 0.2rem 0rem;
+  }
+
+  .fa-solid {
+    font-size: 1rem;
+  }
+
+  .fa-bars {
+    padding: 0.2rem;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+}
+
+/* CSS for screens with a maximum width of 425 pixels */
+@media (max-width: 425px) {
+  .nav {
+    margin: 1rem 0rem;
+    padding: 0.5rem 2rem;
+  }
+}
+
+/* CSS for screens with a maximum width of 768 pixels */
+@media (max-width: 768px) {
+  .nav {
+    margin: 1rem 1rem;
+  }
+}
+
+/* CSS for screens with a maximum width of 768px to 991px */
+@media (max-width: 991px) {
+}
+/* CSS for screens with a maximum width of 992px to 1199px */
+@media (max-width: 1199px) {
+}
+/* CSS for screens with a maximum width of 1200px to 1599px */
+@media (max-width: 1599px) {
+}

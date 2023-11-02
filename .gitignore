@@ -1,0 +1,49 @@
+# Django project directories
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Django settings files
+settings*.py
+local_settings.py
+
+# Static files
+staticfiles/
+*.pyc
+*.pyo
+
+# Media files
+media/
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# Development and deployment files
+*.log
+*.pot
+*.pyc
+*.swp
+*.swo
+*.mo
+*.orig
+*.bak
+*.db
+*.sqlite
+*.psql
+*.db.sqlite3
+*.env
+*.env.*
+*.envrc
+
+# IDE-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Dependency management tools
+pip-log.txt
+pip-wheel-metadata/
+pipenv.lock

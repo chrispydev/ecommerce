@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- main.css -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!-- Our project just needs Font Awesome Free's Solid and Brand files -->
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+
+
+    {% if title %}
+    <title>Django Blog - {{ title }}</title>
+    {% else %}
+    <title>Django Blog</title>
+    {% endif %}
+</head>
+
+<body>
+    {% include 'partial/header_partial.html' %}
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <!-- main.js -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>

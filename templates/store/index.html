@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="products">
+    {% for product in products%}
+    <div class="product shadow">
+        <img src="{{product.image_url}}" />
+        <h3 class="price__tag">
+            GHC {{product.price}}
+        </h3>
+        <div class="product__name">
+            <h3>
+                {{product.name}}
+            </h3>
+        </div>
+        <div class="product__action">
+            <button type="button">Add to Cart <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <a href="{% url 'product_detail' product.id %}">Go to Details</a>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}
