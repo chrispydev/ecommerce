@@ -14,9 +14,10 @@
             </h3>
         </div>
         <div class="product__action">
-            <button type="button">Add to Cart <i class="fa-solid fa-cart-shopping"></i>
-            </button>
+            <button data-product-id="{{ product.id }}" type="button" class="add-to-cart-btn">Add to Cart <i
+                    class="fa-solid fa-cart-shopping"></i></button>
             <a href="{% url 'product_detail' product.id %}">Go to Details</a>
+
         </div>
     </div>
     {% endfor %}
