@@ -49,4 +49,4 @@ pip-wheel-metadata/
 pipenv.lock
 
 # node_modules
-node_module
+node_module/
