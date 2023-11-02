@@ -47,3 +47,6 @@ env/
 pip-log.txt
 pip-wheel-metadata/
 pipenv.lock
+
+# node_modules
+node_module
