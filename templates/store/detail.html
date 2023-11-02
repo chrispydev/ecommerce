@@ -1,8 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<section class="">
-    <h1>This is the detail
-    </h1>
+<section class="detail">
+    <div>
+        <img class="shadow" src="{{product.image_url}}" alt="" srcset="">
+    </div>
+    <div class="product__detail">
+        <h4>{{product.name}}</h4>
+        <p>{{product.description}}</p>
+        <h5>GHC {{product.price}}</h5>
+        <button class="shadow" type="button">ADD TO CART</button>
+    </div>
 </section>
 {% endblock %}

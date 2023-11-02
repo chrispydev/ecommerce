@@ -1,0 +1,27 @@
+/* CSS for screens with a maximum width of 1200px to 1599px */
+@media (max-width: 1599px) {
+}
+/* CSS for screens with a maximum width of 992px to 1199px */
+@media (max-width: 1199px) {
+}
+/* CSS for screens with a maximum width of 768px to 991px */
+@media (max-width: 1024px) {
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+/* CSS for screens with a maximum width of 768 pixels */
+@media (max-width: 768px) {
+  .detail {
+    grid-template-columns: 1fr;
+  }
+}
+/* CSS for screens with a maximum width of 425 pixels */
+@media (max-width: 425px) {
+  .detail {
+    margin: 4rem 1rem 4rem 1rem;
+  }
+}
+/* CSS for screens with a maximum width of 320 pixels */
+@media (max-width: 320px) {
+}
