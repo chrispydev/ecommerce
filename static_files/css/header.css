@@ -37,14 +37,15 @@
   cursor: pointer;
 }
 
-.cart span {
+.cart button {
   position: absolute;
   bottom: 60%;
   left: 60%;
   background-color: #f1f1f1;
+  border: 0;
   font-weight: bold;
   font-size: 0.8rem;
   text-align: center;
-  padding: 0.1rem 0.5rem;
+  padding: 0.5rem;
   border-radius: 100%;
 }

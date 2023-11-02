@@ -5,6 +5,17 @@
   gap: 3rem;
 }
 
+.back__button {
+  margin-bottom: 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.back__button i {
+  margin-right: 0.2rem;
+}
+
 .detail img {
   height: 500px;
 }

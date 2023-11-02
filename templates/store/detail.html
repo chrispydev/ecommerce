@@ -3,6 +3,9 @@
 {% block content %}
 <section class="detail">
     <div>
+        <a class="back__button" href="{% url 'product_home' %}" target="_parent" rel="noopener noreferrer">
+            <i class="fa-solid fa-arrow-left-long"></i> Go Back
+        </a>
         <img class="shadow" src="{{product.image_url}}" alt="" srcset="">
     </div>
     <div class="product__detail">
