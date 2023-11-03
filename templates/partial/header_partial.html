@@ -4,8 +4,40 @@
         <i class="fa-solid fa-book-open"></i>
         <span>BookStore</span>
     </a>
-    <div class="cart">
+    <div onclick="openNav()" class="cart">
         <button type="button" id="cart__info"></button>
         <i class="fa-solid fa-cart-shopping"></i>
     </div>
 </nav>
+
+<!-- sidenav -->
+<div id="mySidenav" class="sidenav">
+    <div class="sidenav__user">
+        {% if user.is_authenticated %}
+        <p>{{ user.username }} Cart</p>
+        {% else %}
+        <p>Please log in to view this content.</p>
+        {% endif %}
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    </div>
+    <div class="sidenav__cartitems">
+        <hr />
+        <div id="cart__items_list">
+            <img width="100"
+                src="https://next.medusajs.com/_next/image?url=https%3A%2F%2Fmedusa-server-testing.s3.amazonaws.com%2Ftshirt-north-1689250146052.jpg&w=1920&q=75"
+                alt="" />
+            <div>
+                <h3>COoo</h3>
+                <p>Ghc 400.00</p>
+                <div class="cart__button">
+                    <button class="quantity-button" onclick="decreaseQuantity()">+</button>
+                    <p>10</p>
+                    <button class="quantity-button" onclick="increaseQuantity()">-</button>
+                </div>
+            </div>
+            <a href="javascript:void(0)" onclick="closeNav()">&times;</a>
+        </div>
+        <!-- <div id="cart__items_list"></div> -->
+
+    </div>
+</div>
