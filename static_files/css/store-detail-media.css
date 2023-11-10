@@ -6,9 +6,9 @@
 }
 /* CSS for screens with a maximum width of 768px to 991px */
 @media (max-width: 1024px) {
-  .products {
+  /* .products {
     grid-template-columns: repeat(3, 1fr);
-  }
+  } */
 }
 /* CSS for screens with a maximum width of 768 pixels */
 @media (max-width: 768px) {
