@@ -76,10 +76,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* Set the width of the side navigation to 40% */
 function openNav() {
-  document.getElementById('mySidenav').style.width = '40%';
+  // document.getElementById('mySidenav').style.width = '40%';
+  document.getElementById('mySidenav').classList.add('sidenav__mobile');
+  // sidenav__mobile;
 }
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
-  document.getElementById('mySidenav').style.width = '0';
+  // document.getElementById('mySidenav').style.width = '0';
+  document.getElementById('mySidenav').classList.remove('sidenav__mobile');
 }

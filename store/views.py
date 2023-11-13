@@ -1,8 +1,8 @@
 from django.views.generic import ListView, DetailView
-from store.models import Product, Order, OrderItem, Cart, CartItem
+from store.models import Product, Order, OrderItem, Cart, CartItem, Customer
 from django.views import View
 from django.db.models import Sum
-from django.shortcuts import redirect
+from django.shortcuts import redirect,render
 from django.http import JsonResponse
 
 
@@ -77,3 +77,11 @@ class CartItemsView(View):
             })
 
         return serialized_items
+
+
+class CheckOutView(View):
+    def get(self, request):
+        products = Product.objects.all()
+        current_user = Customer
+        context = {'products': products}
+        return render(request, 'store/check_out.html', context)
