@@ -101,7 +101,7 @@
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
   transition: margin-left 0.5s;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .sidenav__mobile {
@@ -189,7 +189,7 @@
 }
 
 .cart__button button {
-  background-color: #565e68;
+  background-color: var(--primary-color);
   color: #fff;
   border: 0;
   padding: 0.8rem 0.9rem;
@@ -203,17 +203,17 @@
 
 .checkout__btn button {
   border: 0;
-  color: #565e68;
+  color: var(--primary-color);
   padding: 1rem 1.3rem;
   font-size: 1rem;
   width: 90%;
   margin-top: 2rem;
   outline: 2px solid #565e68;
+  background-color: #fff;
 }
 
 .checkout__btn {
   text-align: center;
-  background-color: none;
   font-weight: bold;
   margin-right: 1rem;
   margin-left: 1rem;

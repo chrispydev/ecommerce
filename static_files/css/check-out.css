@@ -1,0 +1,37 @@
+.check__out__wrapper > * {
+  /* max-width: 100%; */
+  margin-bottom: 1rem;
+  padding: 0 20px;
+}
+
+.term__conditions {
+  font-size: 0.75rem;
+}
+
+.term__conditions a {
+  color: var(--primary-color);
+}
+
+.summary__header {
+  background-color: var(--primary-background);
+  color: var(--primary-color);
+  font-weight: bold;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.2rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.payement__details > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.payement__details > div > *:nth-child(2) {
+  color: #000;
+  font-weight: bolder;
+}
