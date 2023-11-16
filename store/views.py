@@ -1,9 +1,10 @@
 from django.views.generic import ListView, DetailView
-from store.models import Product, Order, OrderItem, Cart, CartItem, Customer
+from store.models import Product, Order, OrderItem, Cart, CartItem
 from django.views import View
 from django.db.models import Sum
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
+from customer.models import Customer
 
 
 class ProductListView(ListView):
