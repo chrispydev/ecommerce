@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 2rem;
+  position: relative;
 }
 
 .fa-bars {
@@ -19,14 +20,25 @@
 }
 
 .logo {
-  font-size: 1.3rem;
   transition: background-color 0.5s ease;
-  border-radius: 0.5rem;
-  padding: 0.8rem 1.2rem;
+  border-radius: 0 0 1rem 1rem;
+  border: 1px solid #ccc;
+  z-index: 10;
+  padding: 0.4rem 1rem;
+  background-color: #fff;
+  position: absolute;
+  left: 40%;
+  top: -1rem;
 }
 
 .logo:hover {
   background-color: #f2f2f2;
+}
+
+.logo img {
+  width: 200px;
+  height: 130px;
+  object-fit: contain;
 }
 
 .cart {
@@ -53,7 +65,7 @@
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 20;
   top: 0;
   right: 0;
   background-color: #fff;

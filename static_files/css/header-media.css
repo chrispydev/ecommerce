@@ -4,6 +4,21 @@
     padding: 0.5rem 2rem;
   }
 
+  .logo {
+    transition: background-color 0.5s ease;
+    border: 1px solid #ccc;
+    z-index: 10;
+    background-color: #fff;
+    position: absolute;
+    left: 30%;
+    top: -2rem;
+  }
+
+  .logo img {
+    width: 110px;
+    height: 95px;
+  }
+
   .sidenav__mobile {
     width: 100%;
   }
@@ -62,6 +77,17 @@
   .nav {
     margin: 1rem 0rem;
     padding: 0.5rem 2rem;
+  }
+
+  .logo {
+    position: absolute;
+    left: 35%;
+    top: -1.3rem;
+  }
+
+  .logo img {
+    width: 180px;
+    height: 95px;
   }
 
   .sidenav__mobile {
