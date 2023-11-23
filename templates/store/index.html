@@ -4,7 +4,7 @@
 <section class="products">
     {% for product in products%}
     <div class="product shadow">
-        <img src="{{product.image_url}}" />
+        <img src="{{product.product_image.url}}" />
         <h3 class="price__tag">
             GHC {{product.price}}
         </h3>

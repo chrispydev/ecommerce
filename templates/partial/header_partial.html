@@ -1,39 +1,68 @@
 {% load static %}
-<nav class="nav__bar shadow">
-  <!-- logo -->
-  <div class="logo">
-    <a href="{% url 'product_home' %}">
-      <img src="{% static 'img/logo.png' %}" alt="logo" />
-    </a>
-  </div>
-  <!-- search input -->
-  <div class="search__product">
-    <input type="search" placeholder="Search for product..." />
-    <button class="search__button">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
-  </div>
-  <!-- user -->
-  <div class="user__detail">
-    {% if user.is_authenticated %}
-    <button class="auth__div">
-      <i class="fa-solid fa-user"></i>
-      <p class="auth__name">Hello, {{ user.username }}</p>
-    </button>
-    {% else %}
-    <div class="auth__div">
-      <p class="auth__name">Hello </p>
+<div class="static">
+  <nav class="nav__bar shadow">
+    <!-- logo -->
+    <div class="logo">
+      <a href="{% url 'product_home' %}">
+        <img src="{% static 'img/logo.png' %}" alt="logo" />
+      </a>
     </div>
+    <!-- search input -->
+    <div class="search__product">
+      <input type="search" placeholder="Search for product..." />
+      <button class="search__button">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+    <!-- user -->
+    <div class="user__detail">
+      {% if user.is_authenticated %}
+      <button class="auth__div">
+        <i class="fa-solid fa-user"></i>
+        <p class="auth__name">{{ user.username }}</p>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+      {% else %}
+      <div class="auth__div">
+        <a href="{% url 'login' %}" class="auth__name">Login</a>
+      </div>
+      {% endif %}
+    </div>
+    <!--  add to cart -->
+    <div class="cart__section">
+      <button class="cart__button cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span>10</span>
+      </button>
+      <button id="toggleBtn" class="cart__button menu__bars">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+  </nav>
+</div>
+<!-- mobile menu -->
+<div id="navopen__toggle" class="mobile__sidemenu">
+  <div class="menuauth_detail">
+    {% if user.is_authenticated %}
+    <h3 class="">Welcome,{{ user.username }}</h3>
+    {% else %}
+    <h3>Welcome Guest User</h3>
     {% endif %}
   </div>
-  <!--  add to cart -->
-  <div class="cart__section">
-    <button class="cart__button cart">
-      <i class="fa-solid fa-basket-shopping"></i>
-      <span>10</span>
-    </button>
-    <button class="cart__button">
-      <i class="fa-solid fa-bars-staggered"></i>
-    </button>
+  <hr />
+  <div class="menu__auth">
+    <div class="menuauth__lint">
+      <a href="">Account</a>
+    </div>
+    <div class="menuauth__lint">
+      <a href="">Orders</a>
+    </div>
+    <div class="menuauth__lint">
+      {% if user.is_authenticated %}
+      <a class="logout__button" href="{% url 'logout' %}">Logout</a>
+      {% else %}
+      <a class="logout__button" href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
   </div>
-</nav>
+</div>

@@ -1,3 +1,14 @@
+/* Styles for screens 320px or below */
+@media (max-width: 320px) {
+  .menuauth_detail h3 {
+    font-size: 1.5rem;
+  }
+
+  .menuauth__lint a {
+    font-size: 1.3rem;
+  }
+}
+
 /* Styles for screens 640px or above */
 @media (min-width: 640px) {
 }
@@ -36,7 +47,15 @@
     color: #fff;
   }
 
-  .cart__button .fa-bars-staggered {
+  .user__detail {
+    display: block;
+  }
+
+  .menu__bars {
+    display: none;
+  }
+
+  .mobile__sidemenu {
     display: none;
   }
 }

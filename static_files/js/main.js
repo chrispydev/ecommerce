@@ -1,84 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Handle Add to Cart button click
-  var addToCartButtons = document.getElementsByClassName('add-to-cart-btn');
-  for (var i = 0; i < addToCartButtons.length; i++) {
-    addToCartButtons[i].addEventListener('click', function () {
-      var productID = this.getAttribute('data-product-id');
-      var csrfToken = getCookie('csrftoken');
-
-      // AJAX request
-      fetch('/add-to-cart/' + productID + '/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'X-CSRFToken': csrfToken,
-        },
-        body: 'product_id=' + productID,
-      })
-        .then(function (response) {
-          return response.json();
-        })
-        .then(function (data) {
-          // Update cart icon
-          document.querySelector('#cart__info').textContent = data.cart_count;
-          // Update cart items in the navbar
-        });
-    });
-  }
-
-  // Function to get CSRF cookie value
-  function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      var cookies = document.cookie.split(';');
-      for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === name + '=') {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
+  /* Set the width of the side navigation to 100% */
+  let toggleBtn = document.getElementById('toggleBtn');
+  toggleBtn.onclick = function () {
+    document
+      .getElementById('navopen__toggle')
+      .classList.toggle('mobile__sidemenu__toggle');
+    if (toggleBtn.innerHTML === '<i class="fa-solid fa-xmark"></i>') {
+      toggleBtn.innerHTML = '<i class="fa-solid fa-bars-staggered"></i>';
+    } else {
+      toggleBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
     }
-    return cookieValue;
-  }
-
-  // load cart quantity when page loads
-  fetch('/cart/count/', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest',
-    },
-  })
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      // Update cart count in the HTML element
-      document.querySelector('#cart__info').textContent = data.total_quantity;
-      updateCartItems(data.cart_items);
-    });
-
-  // Function to update cart items in the navbar
-  function updateCartItems(cartItems) {}
+  };
 });
-
-/* Set the width of the side navigation to 40% */
-function openNav() {
-  document.getElementById('mySidenav').classList.add('sidenav__mobile');
-}
-
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-  document.getElementById('mySidenav').classList.remove('sidenav__mobile');
-}
-
-/* Set the width of the side navigation to 40% */
-function openMenu() {
-  document.getElementById('mySideMenu').classList.toggle('sidemenu__mobile');
-}
-
-// /* Set the width of the side navigation to 0 */
-// function closeMenu() {
-//   document.getElementById('mySideMenu').classList.remove('sidemenu__mobile');
-// }
