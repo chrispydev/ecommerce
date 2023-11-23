@@ -27,7 +27,7 @@
 
 .product__detail h4 {
   font-size: 1.7rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .product__detail p {
@@ -36,15 +36,15 @@
 }
 
 .product__detail h5 {
-  font-weight: 600;
+  font-weight: 800;
   font-size: 2rem;
-  color: #565e68;
+  color: var(--primary-color);
   letter-spacing: -1px;
 }
 
 .product__detail button {
-  background-color: #565e68;
-  border: 1px solid #565e68;
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
   color: #fff;
   padding: 1.2rem 4rem;
   width: 100%;
@@ -53,5 +53,5 @@
 
 .product__detail button:hover {
   background-color: #fff;
-  color: #565e68;
+  color: var(--primary-color);
 }

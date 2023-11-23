@@ -1,65 +1,39 @@
 {% load static %}
-<nav id="navbar" class="nav shadow">
-  <i class="fa-solid fa-bars"></i>
-  <a href="{% url 'product_home' %}" class="logo shadow">
-    <img src="{% static 'img/logo.png' %}" />
-  </a>
-  <div onclick="openNav()" class="cart">
-    <button type="button" id="cart__info"></button>
-    <i class="fa-solid fa-cart-shopping"></i>
+<nav class="nav__bar shadow">
+  <!-- logo -->
+  <div class="logo">
+    <a href="{% url 'product_home' %}">
+      <img src="{% static 'img/logo.png' %}" alt="logo" />
+    </a>
+  </div>
+  <!-- search input -->
+  <div class="search__product">
+    <input type="search" placeholder="Search for product..." />
+    <button class="search__button">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </div>
+  <!-- user -->
+  <div class="user__detail">
+    {% if user.is_authenticated %}
+    <button class="auth__div">
+      <i class="fa-solid fa-user"></i>
+      <p class="auth__name">Hello, {{ user.username }}</p>
+    </button>
+    {% else %}
+    <div class="auth__div">
+      <p class="auth__name">Hello </p>
+    </div>
+    {% endif %}
+  </div>
+  <!--  add to cart -->
+  <div class="cart__section">
+    <button class="cart__button cart">
+      <i class="fa-solid fa-basket-shopping"></i>
+      <span>10</span>
+    </button>
+    <button class="cart__button">
+      <i class="fa-solid fa-bars-staggered"></i>
+    </button>
   </div>
 </nav>
-
-<!-- sidenav -->
-<div id="mySidenav" class="sidenav">
-  <div class="sidenav__user">
-    {% if user.is_authenticated %}
-    <p>{{ user.username }} Cart</p>
-    {% else %}
-    <p>Please log in to view this content.</p>
-    {% endif %}
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
-      >&times;</a
-    >
-  </div>
-  <hr />
-  <!-- cart items -->
-  <div class="sidenav__cartitems">
-    <!-- sidenav cart items -->
-    <div class="cart__items_list">
-      <div class="cart__item_details">
-        <img
-          width="100"
-          src="https://next.medusajs.com/_next/image?url=https%3A%2F%2Fmedusa-server-testing.s3.amazonaws.com%2Ftshirt-north-1689250146052.jpg&w=1920&q=75"
-          alt=""
-        />
-        <div class="cart__item__info">
-          <h3>This is the longest test</h3>
-          <p class="hide__desktop">GHC 40,000.00</p>
-        </div>
-      </div>
-      <div class="hide__mobile">
-        <p>GHC40,000.00</p>
-      </div>
-    </div>
-    <hr />
-    <div class="cart__manipulation">
-      <div>
-        <button class="cart__remove">
-          <i class="fa-solid fa-trash"></i>
-          Remove
-        </button>
-      </div>
-      <div class="cart__button">
-        <button class="quantity-button" onclick="decreaseQuantity()">-</button>
-        <p>10</p>
-        <button class="quantity-button" onclick="increaseQuantity()">+</button>
-      </div>
-    </div>
-  </div>
-  <!-- checkout button -->
-  <a class="checkout__btn" target="_self" href="{% url 'checkout' %}">
-    <button>Checkout</button>
-  </a>
-</div>
-

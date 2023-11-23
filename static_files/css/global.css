@@ -17,12 +17,16 @@ li {
 :root {
   --primary-color: #294048;
   --primary-background: #f1f1f2;
+  --primary-color-light: #7a8589;
 }
 
 /* Global styles */
 body {
-  font-family: Arial, sans-serif;
-  font-size: 16px;
+  /* font-family: 'Poppins', sans-serif !important; */
+  /* font-family: 'avenir-lt-w01_35-light1475496', sans-serif; */
+  font-family: 'Sono', sans-serif !important;
+  font-weight: 300;
+  font-size: 14px;
   line-height: 1.5;
 }
 

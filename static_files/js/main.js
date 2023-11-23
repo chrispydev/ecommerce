@@ -60,29 +60,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
   // Function to update cart items in the navbar
-  function updateCartItems(cartItems) {
-    // console.log(cartItems);
-    // var cartItemsList = document.querySelector('#cart__items_list');
-    // cartItemsList.innerHTML = '';
-    // const html = `
-    // `;
-    // cartItems.forEach(function (item) {
-    //   var listItem = document.createElement('li');
-    //   listItem.textContent = item.product + ' (' + item.quantity + ')';
-    //   cartItemsList.appendChild(listItem);
-    // });
-  }
+  function updateCartItems(cartItems) {}
 });
 
 /* Set the width of the side navigation to 40% */
 function openNav() {
-  // document.getElementById('mySidenav').style.width = '40%';
   document.getElementById('mySidenav').classList.add('sidenav__mobile');
-  // sidenav__mobile;
 }
 
 /* Set the width of the side navigation to 0 */
 function closeNav() {
-  // document.getElementById('mySidenav').style.width = '0';
   document.getElementById('mySidenav').classList.remove('sidenav__mobile');
 }
+
+/* Set the width of the side navigation to 40% */
+function openMenu() {
+  document.getElementById('mySideMenu').classList.toggle('sidemenu__mobile');
+}
+
+// /* Set the width of the side navigation to 0 */
+// function closeMenu() {
+//   document.getElementById('mySideMenu').classList.remove('sidemenu__mobile');
+// }
