@@ -3,6 +3,8 @@ from django.views import View
 from django.contrib import messages
 from django.contrib.auth import login
 from customer.forms import UserRegisterForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from customer.forms import UserUpdateForm, CustomerUpdateForm
 
 class RegisterForm(View):
     def post(self, request):
@@ -22,3 +24,29 @@ class RegisterForm(View):
         user_form = UserRegisterForm()
         template_name = 'customer/register.html'
         return render(request, template_name, {'user_form': user_form})
+
+
+class AccountView(View):
+    def get(self, request):
+        return render(request, template_name='customer/account.html')
+
+class ProfileView(View, LoginRequiredMixin):
+    def post(self, request):
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        c_form = CustomerUpdateForm(
+            request.POST,instance=request.user.customer)
+        if u_form.is_valid() and c_form.is_valid():
+            u_form.save()
+            c_form.save()
+            return redirect('profile')
+
+    def get(self, request):
+        u_form = UserUpdateForm(instance=request.user)
+        c_form = CustomerUpdateForm(instance=request.user.customer)
+        template_name = 'customer/profile.html'
+        context = {
+            'u_form': u_form,
+            'c_form': c_form,
+        }
+
+        return render(request, template_name, context)

@@ -58,3 +58,20 @@ img {
 button {
   cursor: pointer;
 }
+
+.footer {
+  margin-top: 3rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 425px) {
+  .footer {
+    flex-direction: column;
+  }
+}

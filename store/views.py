@@ -4,7 +4,7 @@ from django.views import View
 from django.db.models import Sum
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
-from customer.models import Customer
+# from customer.models import Customer
 
 
 class ProductListView(ListView):
@@ -93,13 +93,3 @@ class CartItemsView(View):
         return serialized_items
 
 
-class CheckOutView(View):
-    def get(self, request):
-        customer = ""
-        if request.user.is_authenticated:
-            customer = Customer.objects.get(user=request.user)
-            print(customer)
-        else:
-            print("user is not authenticated")
-        context = {"customer": customer}
-        return render(request, "store/check_out.html", context)

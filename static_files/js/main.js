@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-  /* Set the width of the side navigation to 100% */
+  // get the DOM elements
   let toggleBtn = document.getElementById('toggleBtn');
+  let userDetailDropdown = document.getElementById('userdetail__dropdown');
+
+  /* Set the width of the side navigation to 100% */
   toggleBtn.onclick = function () {
     document
       .getElementById('navopen__toggle')
@@ -10,5 +13,11 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
       toggleBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
     }
+  };
+
+  userDetailDropdown.onclick = function () {
+    document
+      .getElementById('dropdown__menu')
+      .classList.toggle('down__menu-show');
   };
 });

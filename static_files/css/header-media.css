@@ -22,12 +22,13 @@
 
   .search__product {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     position: absolute;
     left: 30%;
     border: 1px solid var(--primary-color-light);
     height: 50px;
+    width: 300px;
   }
 
   .search__product input {
@@ -47,6 +48,21 @@
     color: #fff;
   }
 
+  .down__menu {
+    max-width: 400px !important;
+    position: fixed;
+    top: 4rem;
+    right: 9%;
+    z-index: 20;
+    background-color: #fff;
+    height: 0;
+    display: none;
+  }
+
+  .down__menu-show {
+    display: block;
+  }
+
   .user__detail {
     display: block;
   }
@@ -62,6 +78,20 @@
 
 /* CSS for screens with a minimum width of 768px to 991px */
 @media (min-width: 1024px) {
+  .search__product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    left: 37%;
+    border: 1px solid var(--primary-color-light);
+    height: 50px;
+    width: 300px;
+  }
+
+  .cart {
+    margin-right: 2rem;
+  }
 }
 
 /* CSS for screens with a minimum width of 992px to 1199px */

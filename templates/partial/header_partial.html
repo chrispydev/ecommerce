@@ -17,14 +17,14 @@
     <!-- user -->
     <div class="user__detail">
       {% if user.is_authenticated %}
-      <button class="auth__div">
+      <button id="userdetail__dropdown" class="auth__div">
         <i class="fa-solid fa-user"></i>
         <p class="auth__name">{{ user.username }}</p>
         <i class="fa-solid fa-chevron-down"></i>
       </button>
       {% else %}
       <div class="auth__div">
-        <a href="{% url 'login' %}" class="auth__name">Login</a>
+        <a style="color: var(--primary-color); font-size: 1.4rem;" href="{% url 'login' %}" class="auth__name">Login</a>
       </div>
       {% endif %}
     </div>
@@ -40,6 +40,22 @@
     </div>
   </nav>
 </div>
+<!-- drop down menu -->
+<div id="dropdown__menu" class="shadow down__menu">
+  <div class="menuauth__lint">
+    <i class="fa-solid fa-user"></i> <a href="{% url 'account' %}">Account</a>
+  </div>
+  <div class="menuauth__lint">
+    <i class="fa-solid fa-box"></i><a href="">Orders</a>
+  </div>
+  <div class="menuauth__lint">
+    {% if user.is_authenticated %}
+    <i class="fa-regular fa-circle-dot"></i> <a class="logout__button" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <i class="fa-regular fa-circle-dot"></i> <a class="logout__button" href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </div>
+</div>
 <!-- mobile menu -->
 <div id="navopen__toggle" class="mobile__sidemenu">
   <div class="menuauth_detail">
@@ -52,16 +68,19 @@
   <hr />
   <div class="menu__auth">
     <div class="menuauth__lint">
-      <a href="">Account</a>
+      <i class="fa-solid fa-user"></i> <a href="{% url 'account' %}">Account</a>
     </div>
     <div class="menuauth__lint">
-      <a href="">Orders</a>
+      <i class="fa-solid fa-box"></i><a href="">Orders</a>
+    </div>
+    <div class="menuauth__lint">
+      <i class="fa-solid fa-envelope"></i><a href="">Inbox</a>
     </div>
     <div class="menuauth__lint">
       {% if user.is_authenticated %}
-      <a class="logout__button" href="{% url 'logout' %}">Logout</a>
+      <i class="fa-regular fa-circle-dot"></i> <a class="logout__button" href="{% url 'logout' %}">Logout</a>
       {% else %}
-      <a class="logout__button" href="{% url 'login' %}">Login</a>
+      <i class="fa-regular fa-circle-dot"></i> <a class="logout__button" href="{% url 'login' %}">Login</a>
       {% endif %}
     </div>
   </div>
