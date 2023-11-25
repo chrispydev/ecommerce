@@ -66,3 +66,5 @@ class MessageListView(LoginRequiredMixin, ListView):
         queryset = super().get_queryset().filter(user=user)
 
         return queryset
+
+

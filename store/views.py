@@ -93,3 +93,8 @@ class CartItemsView(View):
         return serialized_items
 
 
+class OderListView(ListView):
+    model = Order
+    context_object_name = 'orders'
+    template_name = 'store/order.html'
+    ordering = ['-created_at']

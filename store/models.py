@@ -1,6 +1,7 @@
 """ module imports"""
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 
 class Product(models.Model):
@@ -26,10 +27,17 @@ class OrderItem(models.Model):
     def subtotal(self):
         return self.price * self.quantity
 
-
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order_id = models.UUIDField(default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        # Generate a new order_id if it is not already set
+        if not self.order_id:
+            self.order_id = uuid.uuid4()
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Order #{self.id} - {self.user.username}"
