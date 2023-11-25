@@ -74,7 +74,7 @@
       <i class="fa-solid fa-box"></i><a href="">Orders</a>
     </div>
     <div class="menuauth__lint">
-      <i class="fa-solid fa-envelope"></i><a href="">Inbox</a>
+      <i class="fa-solid fa-envelope"></i><a href="{% url 'inbox' %}">Inbox</a>
     </div>
     <div class="menuauth__lint">
       {% if user.is_authenticated %}

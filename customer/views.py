@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.views import View
+from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth import login
+from customer.models import Message
 from customer.forms import UserRegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from customer.forms import UserUpdateForm, CustomerUpdateForm
@@ -50,3 +52,17 @@ class ProfileView(View, LoginRequiredMixin):
         }
 
         return render(request, template_name, context)
+
+
+class MessageListView(LoginRequiredMixin, ListView):
+    model = Message
+    context_object_name = 'inbox_messages'
+    template_name = 'customer/message.html'
+    ordering = ['-date_received']
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = super().get_queryset().filter(user=user)
+
+        return queryset

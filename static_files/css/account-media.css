@@ -20,6 +20,10 @@
     margin-top: 5rem;
   }
 
+  .accounthide__mobile {
+    display: block;
+  }
+
   .navigation__menu {
     max-width: 200px;
   }

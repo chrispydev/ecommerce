@@ -23,7 +23,7 @@
         </div>
         <hr />
         <div class="account__name__menu">
-            <a href="" class="menu__name">
+            <a href="{% url 'inbox' %}" class="menu__name">
                 <i class="fa-solid fa-envelope"></i>
                 <span>Inbox</span>
             </a>
@@ -69,7 +69,7 @@
         <hr />
     </div>
     <!-- Account Details -->
-    <div>
+    <div class="accounthide__mobile">
         <div class="account__details">
             {% if user.is_authenticated %}
             <p class="account__username">Hello,{{user.username}}</p>

@@ -4,6 +4,10 @@
   margin-top: 3rem;
 }
 
+.accounthide__mobile {
+  display: none;
+}
+
 .account__name {
   font-size: 1.4rem;
   font-weight: 600;
