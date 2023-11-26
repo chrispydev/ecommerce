@@ -96,6 +96,7 @@ class OrderListView(ListView):
     model = Order
     template_name = 'store/orders.html'
     context_object_name = 'orders'
+    ordering = ['-created_at']
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -116,3 +117,8 @@ class OrderDetailView(DetailView):
     model = Order
     template_name = 'store/order_detail.html'
     context_object_name = 'order'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['orderitems'] = self.object.orderitem_set.all()
+        return context

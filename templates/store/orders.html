@@ -81,7 +81,7 @@
             {% for order_item in order.orderitem_set.all %}
             <div>
                 <div class="order__image">
-                    <img src="{{ order_item.product.product_image}}" alt="order iimage">
+                    <img src="{{ order_item.product.product_image }}" alt="{{ order_item.product.name }}">
                 </div>
                 <div class="orderproduct__detail">
                     <p>{{ order_item.product.name }}</p>
@@ -91,7 +91,9 @@
             {% endfor %}
         </div>
         <div class="order__button">
-            <button class="orderdetail__button">See details</button>
+            <button class="orderdetail__button">
+                <a href="{% url 'order_detail' order.id %}">See details</a>
+            </button>
         </div>
         <hr />
         {% endfor %}

@@ -84,3 +84,13 @@
   font-size: 0.95rem;
   margin-top: 1rem;
 }
+
+.orderdetail__button a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.orderdetail__button a:hover {
+  text-decoration: none;
+  color: var(--primary-color);
+}

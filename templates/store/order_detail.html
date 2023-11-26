@@ -1,3 +1,21 @@
 {% extends 'base.html' %} {% block content %}
 
+<section class="orderdetail__wrapper">
+    <p class="order__date">Order date: {{ order.created_at|date:"F d,Y:H:i" }}</p>
+    <p class="order__number">Order number: <span>{{ order.order_id }}</span></p>
+    <p class="order__status">Order Status:<span>Delivery State</span></p>
+    <p>Payment Type</p>
+    <hr />
+    {% for orderitem in orderitems %}
+    <div>
+        <img src="{{  orderitem.product.product_image.url }}" alt="{{ orderitem.product.name }}" />
+        <p>{{ orderitem.product.name }}</p>
+        <div>
+            <p>{{ orderitem.quantity }}x {{ orderitem.product.price }}</p>
+            <p>{{orderitem.subtotal}}</p>
+        </div>
+    </div>
+    {% endfor %}
+    <hr />
+</section>
 {% endblock %}

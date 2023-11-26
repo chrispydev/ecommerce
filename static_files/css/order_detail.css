@@ -1,0 +1,20 @@
+.orderdetail__wrapper {
+  margin: 4rem 12rem 2rem 12rem;
+}
+
+.order__date {
+  font-size: 0.9rem;
+}
+
+.order__number {
+  display: flex;
+  font-size: 0.9rem;
+}
+
+.order__number span {
+  color: var(--primary-color);
+}
+
+.order__status {
+  font-size: 0.9rem;
+}
