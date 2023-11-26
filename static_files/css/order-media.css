@@ -1,0 +1,23 @@
+@media (max-width: 375px) {
+  .order__id {
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+
+  .order__details {
+    font-size: 0.7rem;
+    flex-wrap: wrap;
+  }
+}
+
+@media (min-width: 768px) {
+  .order__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .order__id {
+    font-weight: bold;
+    font-size: 1.4rem;
+  }
+}

@@ -68,8 +68,33 @@
         </div>
         <h1 class="inbox__header">Orders</h1>
         <hr />
+        {% for order in orders %}
 
 
+        <h5 class="order__id">#{{ order.order_id}}</h5>
+        <div class="order__details">
+            <p>{{ order.created_at|date:"F d,Y:H:i" }}</p>
+            <p>{{order.total_price|floatformat:2}}</p>
+            <p>{{ order.total_quantity }} item(s)</p>
+        </div>
+        <div class="order__items">
+            {% for order_item in order.orderitem_set.all %}
+            <div>
+                <div class="order__image">
+                    <img src="{{ order_item.product.product_image}}" alt="order iimage">
+                </div>
+                <div class="orderproduct__detail">
+                    <p>{{ order_item.product.name }}</p>
+                    <p class="font__weight">x{{ order_item.quantity }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="order__button">
+            <button class="orderdetail__button">See details</button>
+        </div>
+        <hr />
+        {% endfor %}
     </div>
 </section>
 {% endblock content %}

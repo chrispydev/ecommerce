@@ -1,10 +1,10 @@
 from django.views.generic import ListView, DetailView
 from store.models import Product, Order, OrderItem, Cart, CartItem
 from django.views import View
-from django.db.models import Sum
+from django.db.models import Sum,F
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
-# from customer.models import Customer
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ProductListView(ListView):
@@ -92,9 +92,27 @@ class CartItemsView(View):
 
         return serialized_items
 
-
-class OderListView(ListView):
+class OrderListView(ListView):
     model = Order
+    template_name = 'store/orders.html'
     context_object_name = 'orders'
-    template_name = 'store/order.html'
-    ordering = ['-created_at']
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(user=self.request.user)
+        queryset = queryset.prefetch_related('orderitem_set')  # Prefetch order items for efficiency
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        for order in context['orders']:
+            order.total_quantity = order.orderitem_set.aggregate(total_quantity=Sum('quantity'))['total_quantity']
+            order.total_price = order.orderitem_set.annotate(item_price=F('quantity') * F('price')).aggregate(total_price=Sum('item_price'))['total_price']
+
+        return context
+
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = 'store/order_detail.html'
+    context_object_name = 'order'
