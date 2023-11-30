@@ -1,21 +1,48 @@
 {% extends 'base.html' %} {% block content %}
 
 <section class="orderdetail__wrapper">
+    <a class="back__button" href="{% url 'account' %}">Account</a>
     <p class="order__date">Order date: {{ order.created_at|date:"F d,Y:H:i" }}</p>
     <p class="order__number">Order number: <span>{{ order.order_id }}</span></p>
     <p class="order__status">Order Status:<span>Delivery State</span></p>
-    <p>Payment Type</p>
+    <p class="payment__type">Payment Type</p>
     <hr />
     {% for orderitem in orderitems %}
-    <div>
+    <div class="order__product">
         <img src="{{  orderitem.product.product_image.url }}" alt="{{ orderitem.product.name }}" />
-        <p>{{ orderitem.product.name }}</p>
-        <div>
-            <p>{{ orderitem.quantity }}x {{ orderitem.product.price }}</p>
-            <p>{{orderitem.subtotal}}</p>
+        <p class="orderproduct__name">{{ orderitem.product.name }}</p>
+        <div class="orderproduct__price">
+            <p class="order__initialprice">{{ orderitem.quantity }}x {{ orderitem.product.price }}</p>
+            <p>Total Price:{{orderitem.subtotal}}</p>
         </div>
     </div>
     {% endfor %}
+    <div class="other__details">
+        <h1>Delivery</h1>
+        <div class="other__contacts">
+            <div>
+                <h5>Shipping Address</h5>
+                <p>Address</p>
+            </div>
+            <div>
+                <h5>Contant</h5>
+                <p>01234567</p>
+            </div>
+            <div>
+                <h5>Payment Method</h5>
+                <p>Mobile Money</p>
+            </div>
+        </div>
+    </div>
     <hr />
+    <div class="subtotal__div">
+        <div>
+            <h5>Order Summary</h5>
+            <p class="subtotal__label">Subtotal</p>
+        </div>
+        <div class="subtotal__money">
+            Ghc309.9
+        </div>
+    </div>
 </section>
 {% endblock %}

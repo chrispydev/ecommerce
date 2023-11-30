@@ -46,7 +46,7 @@
     <i class="fa-solid fa-user"></i> <a href="{% url 'account' %}">Account</a>
   </div>
   <div class="menuauth__lint">
-    <i class="fa-solid fa-box"></i><a href="">Orders</a>
+    <i class="fa-solid fa-box"></i><a href="{% url 'orders' %}">Orders</a>
   </div>
   <div class="menuauth__lint">
     {% if user.is_authenticated %}
@@ -71,7 +71,7 @@
       <i class="fa-solid fa-user"></i> <a href="{% url 'account' %}">Account</a>
     </div>
     <div class="menuauth__lint">
-      <i class="fa-solid fa-box"></i><a href="">Orders</a>
+      <i class="fa-solid fa-box"></i><a href="{% url 'orders' %}">Orders</a>
     </div>
     <div class="menuauth__lint">
       <i class="fa-solid fa-envelope"></i><a href="{% url 'inbox' %}">Inbox</a>
