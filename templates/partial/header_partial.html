@@ -9,10 +9,14 @@
     </div>
     <!-- search input -->
     <div class="search__product">
-      <input type="search" placeholder="Search for product..." />
+      <input id="search" type="search" placeholder="Search for product..." autocomplete="off" />
       <button class="search__button">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
+      <!-- result product search -->
+      <div id="match-list" class="match__list shadow">
+
+      </div>
     </div>
     <!-- user -->
     <div class="user__detail">
@@ -28,7 +32,7 @@
       </div>
       {% endif %}
     </div>
-    <!--  add to cart -->
+    <!-- add to cart -->
     <div class="cart__section">
       <button class="cart__button cart">
         <i class="fa-solid fa-cart-shopping"></i>
@@ -58,6 +62,16 @@
 </div>
 <!-- mobile menu -->
 <div id="navopen__toggle" class="mobile__sidemenu">
+  <!-- search input -->
+  <div class="search__product__mobile">
+    <input id="search-mobile" type="search" placeholder="Search for product..." autocomplete="off" />
+    <button class="search__button">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+    <!-- result product search -->
+    <div id="match-list-2" class="match__list">
+    </div>
+  </div>
   <div class="menuauth_detail">
     {% if user.is_authenticated %}
     <h3 class="">Welcome,{{ user.username }}</h3>

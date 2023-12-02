@@ -3,11 +3,18 @@ from django.db import models
 from django.contrib.auth.models import User
 import uuid
 
+class Category(models.Model):
+    name = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.name
 
 class Product(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=300)
+    # product_image = models.ImageField(upload_to='media_file', default='default.jpg')
     product_image = models.ImageField(upload_to='media_file', default='default.jpg')
     description = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default='iphone', null=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -20,52 +20,53 @@
                 {% endfor %}
             </div>
         </article>
-
         <article class="products">
-            {% for product in products%}
+            {% for category_product in category_products%}
             <div class="product shadow">
-                <img src="{{product.product_image}}" />
+                <img src="{{category_product.product_image}}" />
                 {% comment %}
-                <img src="{{product.product_image.url}}" />
+                <img src="{{category_product.product_image.url}}" />
                 {% endcomment %}
                 <h3 class="price__tag">
-                    GHC{{product.price}}
+                    GHC{{category_product.price}}
                 </h3>
                 <div class="product__name">
                     <h3>
-                        {{product.name|truncatechars:15}}
+                        {{category_product.name|truncatechars:15}}
                     </h3>
                 </div>
                 <div class="product__action">
-                    <button data-product-id="{{ product.id }}" type="button" class="add-to-cart-btn">Add to Cart <i
-                            class="fa-solid fa-cart-shopping"></i></button>
-                    <a href="{% url 'product_detail' product.id %}">Go to Details</a>
+                    <button data-product-id="{{ category_product.id }}" type="button" class="add-to-cart-btn">Add to
+                        Cart <i class="fa-solid fa-cart-shopping"></i></button>
+                    <a href="{% url 'product_detail' category_product.id %}">Go to Details</a>
 
                 </div>
             </div>
             {% endfor %}
         </article>
         <article style="margin-top: 2rem;margin-left: 1.5rem;">
-            {% if is_paginated %}
-            {% if page_obj.has_previous %}
+
+            {% if category_products.has_previous %}
             <a class="btn btn-outline-secondary mb-4" href="?page=1">First</a>
-            <a class="btn btn-outline-secondary mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            <a class="btn btn-outline-secondary mb-4"
+                href="?page={{ category_products.previous_page_number }}">Previous</a>
             {% endif %}
 
-            {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
+            {% for num in category_products.paginator.page_range %}
+            {% if category_products.number == num %}
             <a class="btn btn-secondary mb-4" href="?page={{ num }}">{{ num }}</a>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
+            {% elif num > category_products.number|add:'-3' and num < category_products.number|add:'3' %} <a
                 class="btn btn-outline-secondary mb-4" href="?page={{ num }}">{{ num }}</a>
                 {% endif %}
                 {% endfor %}
 
-                {% if page_obj.has_next %}
-                <a class="btn btn-outline-secondary mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-                <a class="btn btn-outline-secondary mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% if category_products.has_next %}
+                <a class="btn btn-outline-secondary mb-4" href="?page={{ category_products.next_page_number }}">Next</a>
+                <a class="btn btn-outline-secondary mb-4"
+                    href="?page={{ category_products.paginator.num_pages }}">Last</a>
                 {% endif %}
 
-                {% endif %}
+
         </article>
     </article>
 </section>

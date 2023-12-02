@@ -1,16 +1,23 @@
 from django.views.generic import ListView, DetailView
-from store.models import Product, Order, OrderItem, Cart, CartItem
+from store.models import Product, Order, OrderItem, Cart, CartItem, Category
 from django.views import View
 from django.db.models import Sum,F
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 
 
 class ProductListView(ListView):
     model = Product
     context_object_name = "products"
     template_name = "store/index.html"
+    paginate_by = 9
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 
 class ProductDetailView(DetailView):
@@ -18,6 +25,25 @@ class ProductDetailView(DetailView):
     context_object_name = "product"
     template_name = "store/detail.html"
 
+class CategoryProductListView(View):
+
+     def get(self, request, name):
+        category_name = name
+        categories = Category.objects.all()
+        queryset = Product.objects.all()
+        if category_name:
+            queryset = queryset.filter(category__name__iexact=category_name)
+
+        paginator = Paginator(queryset, per_page=9)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        context = {
+            'category_products': page_obj,
+            'categories': categories
+        }
+        template_name = 'store/category_products.html'
+        return render(request=request, template_name=template_name, context=context)
 
 class AddToCartView(View):
     def post(self, request, *args, **kwargs):

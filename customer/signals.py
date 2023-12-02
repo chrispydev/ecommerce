@@ -5,11 +5,11 @@ from customer.models import Customer
 
 
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
+def create_customer(sender, instance, created, **kwargs):
     if created:
         Customer.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
+def save_customer(sender, instance, **kwargs):
     instance.customer.save()

@@ -3,13 +3,15 @@
 {% block content %}
 <section class="detail">
     <div>
-
+        <img class="shadow" src="{{product.product_image}}" alt="" srcset="">
+        {% comment %}
         <img class="shadow" src="{{product.product_image.url}}" alt="" srcset="">
+        {% endcomment %}
     </div>
     <div class="product__detail">
         <h4>{{product.name}}</h4>
         <p>{{product.description}}</p>
-        <h5>GHC {{product.price}}</h5>
+        <h5>GHC{{product.price}}</h5>
         <button data-product-id="{{product.id}}" class="shadow" id="detail__add" type="button">ADD TO CART</button>
     </div>
 </section>
