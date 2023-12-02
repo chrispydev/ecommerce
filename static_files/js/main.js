@@ -4,10 +4,15 @@ document.addEventListener('DOMContentLoaded', function () {
   let ca_ = document.getElementById('cate_hide');
   let userDetailDropdown = document.getElementById('userdetail__dropdown');
 
-  /* toggling the show categories */
-  ca_.onclick = function () {
-    document.getElementById('cate_hide_').classList.toggle('hideToggle');
-  };
+  // search functionality
+  const search = document.getElementById('search');
+  const searchMobile = document.getElementById('search-mobile');
+  const matchList = document.getElementById('match-list');
+  const matchListMobile = document.getElementById('match-list-2');
+  const searchProductBtn = document.getElementById('search__product');
+  const searchProductMobileBtn = document.getElementById(
+    'search__product__mobile'
+  );
 
   toggleBtn.onclick = function () {
     document
@@ -27,11 +32,35 @@ document.addEventListener('DOMContentLoaded', function () {
       .classList.toggle('down__menu-show');
   };
 
-  // search functionality
-  const search = document.getElementById('search');
-  const searchMobile = document.getElementById('search-mobile');
-  const matchList = document.getElementById('match-list');
-  const matchListMobile = document.getElementById('match-list-2');
+  searchProductBtn.addEventListener('click', function () {
+    const searchQuery = search.value;
+    if (searchQuery.length === 0) {
+      return;
+    } else {
+      window.location.href = `http://localhost:8000/product-search/${searchQuery}/`;
+    }
+  });
+
+  search.addEventListener('keydown', function () {
+    if (event.key === 'Enter') {
+      const searchQuery = search.value;
+      if (searchQuery.length === 0) {
+        return;
+      } else {
+        window.location.href = `http://localhost:8000/product-search/${searchQuery}/`;
+      }
+    }
+  });
+
+  searchProductMobileBtn.addEventListener('click', function () {
+    const searchQuery = searchMobile.value;
+    console.log(searchQuery);
+    if (searchQuery.length === 0) {
+      return;
+    } else {
+      window.location.href = `http://localhost:8000/product-search/${searchQuery}/`;
+    }
+  });
 
   // Search products in data base
   const searchProduct = async (searchText) => {
@@ -79,4 +108,28 @@ document.addEventListener('DOMContentLoaded', function () {
   searchMobile.addEventListener('input', () =>
     searchProduct(searchMobile.value)
   );
+
+  // load cart quantity when page loads
+  fetch('/cart/count/', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+    },
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      if (data.total_quantity === null) {
+        document.querySelector('#cart__info').textContent = '0';
+      } else {
+        document.querySelector('#cart__info').textContent = data.total_quantity;
+      }
+    });
+
+  /* toggling the show categories */
+  ca_.onclick = function () {
+    document.getElementById('cate_hide_').classList.toggle('hideToggle');
+  };
 });

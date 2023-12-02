@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+import requests
 
 
 class ProductListView(ListView):
@@ -40,10 +41,36 @@ class CategoryProductListView(View):
 
         context = {
             'category_products': page_obj,
-            'categories': categories
+            'categories': categories,
+            'product_total': len(queryset)
         }
         template_name = 'store/category_products.html'
         return render(request=request, template_name=template_name, context=context)
+
+class SearchViewList(View):
+    def get(self, request, search):
+        api_url = f"http://localhost:8000/api/?search={search}"
+
+        response = requests.get(api_url)
+
+        data = response.json()
+
+        categories = Category.objects.all()
+        # https://images-na.ssl-images-amazon.com/images/I/717UGUXelVL._AC_SX679_.jpg
+
+        for product in data:
+            product_image = product.get('product_image')
+            if product_image:
+                modified_product_image = product_image.replace("http://localhost:8000/https%3A/", "https://")
+                product['product_image'] = modified_product_image
+
+        context = {
+            'category_products': data,
+            'categories': categories,
+            'page': 'product-search',
+            'product_total': len(data)
+        }
+        return render(request, 'store/category_products.html', context)
 
 class AddToCartView(View):
     def post(self, request, *args, **kwargs):
@@ -86,10 +113,10 @@ class AddToCartView(View):
 
 class CartItemsView(View):
     def get(self, request):
-        cart_items, total_quantity = self.get_cart_items_for_current_user(request)
-        serialized_cart_items = self.serialize_cart_items(cart_items)
+        total_quantity = self.get_cart_items_for_current_user(request)
+
         return JsonResponse(
-            {"cart_items": serialized_cart_items, "total_quantity": total_quantity}
+            { "total_quantity": total_quantity}
         )
 
     def get_cart_items_for_current_user(self, request):
@@ -102,21 +129,9 @@ class CartItemsView(View):
             cart_items = []
             total_quantity = 0
 
-        return cart_items, total_quantity
+        return total_quantity
 
-    def serialize_cart_items(self, cart_items):
-        serialized_items = []
-        for cart_item in cart_items:
-            serialized_items.append(
-                {
-                    "product": cart_item.product.name,
-                    "quantity": cart_item.quantity,
-                    "price": str(cart_item.price),
-                    "subtotal": str(cart_item.subtotal()),
-                }
-            )
 
-        return serialized_items
 
 class OrderListView(ListView):
     model = Order
