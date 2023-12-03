@@ -1,6 +1,6 @@
 """ imports"""
 from django.contrib import admin
-from store.models import Product, Order, OrderItem, Cart, CartItem, Category
+from store.models import Product, Order, OrderItem, Cart, CartItem, Category, ShippingTax
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
@@ -13,3 +13,4 @@ admin.site.register(Category)
 admin.site.register(OrderItem)
 admin.site.register(Cart)
 admin.site.register(CartItem)
+admin.site.register(ShippingTax)

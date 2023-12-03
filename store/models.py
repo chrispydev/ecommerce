@@ -69,3 +69,8 @@ class CartItem(models.Model):
 
     def subtotal(self):
         return self.price * self.quantity
+
+
+class ShippingTax(models.Model):
+    shipping = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    tax = models.DecimalField(max_digits=8, decimal_places=2, default=0)

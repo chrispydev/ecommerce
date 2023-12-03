@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="cart__wrapper">
+    <h1 class="cart__header">Cart</h1>
+    <section class="cart__section">
+        <article>
+            <div class="cart__heading">
+                <h5>Item</h5>
+                <h5>Quantity</h5>
+                <h5>Price</h5>
+                <h5>Total</h5>
+            </div>
+            <hr />
+            {% for cart_item in cart_items %}
+            <div>
+                <div class="cart__item">
+                    <!-- items -->
+                    <div class="cartdetail__image">
+                        <img class="cart__image" src="{{ cart_item.product.product_image }}"
+                            alt="{{ cart_item.product.description }}">
+                        <p class="cart__title">{{ cart_item.product.name|truncatechars:40 }}</p>
+                    </div>
+                    <!-- Quantity -->
+                    <div class="cart__quantity">
+                        <button>
+                            <i class="fas fa-trash-can"></i>
+                        </button>
+                        <select class="cartquantity__number" id="numberSelect">
+                            <option value={{cart_item.quantity}}>{{cart_item.quantity}}</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="1">6</option>
+                            <option value="2">7</option>
+                            <option value="3">8</option>
+                            <option value="4">9</option>
+                            <option value="5">10</option>
+                        </select>
+                    </div>
+                    <!-- Price -->
+                    <div class="cart__color">
+                        <p>GHC{{cart_item.product.price}}</p>
+                    </div>
+                    <!-- Total -->
+                    <div class="cart__color">
+                        <p>GHC{{cart_item.subtotal}}</p>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            {% endfor %}
+        </article>
+        <article>
+            <h1 class="cart__header">Summary</h1>
+            <hr />
+            <div class="summary">
+                <div>
+                    <p>Subtotal</p>
+                    <p>Shipping</p>
+                    <p>Taxes</p>
+                </div>
+                <div>
+                    <p>GHC{{subtotal}}</p>
+                    <p>GHC{{shipping}}</p>
+                    <p>GHC{{tax}}</p>
+                </div>
+            </div>
+            <hr />
+            <div class="total">
+                <p>Total</p>
+                <p>GHC{{total}}</p>
+            </div>
+            <hr />
+            <button class="checkout__button">Go to checkout</button>
+        </article>
+    </section>
+</section>
+{% endblock %}

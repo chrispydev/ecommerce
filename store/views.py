@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView
-from store.models import Product, Order, OrderItem, Cart, CartItem, Category
+from store.models import Product, Order, OrderItem, Cart, CartItem, Category, ShippingTax
 from django.views import View
 from django.db.models import Sum,F
 from django.shortcuts import redirect, render
@@ -56,7 +56,6 @@ class SearchViewList(View):
         data = response.json()
 
         categories = Category.objects.all()
-        # https://images-na.ssl-images-amazon.com/images/I/717UGUXelVL._AC_SX679_.jpg
 
         for product in data:
             product_image = product.get('product_image')
@@ -111,7 +110,7 @@ class AddToCartView(View):
         return JsonResponse({"cart_count": cart_count})
 
 
-class CartItemsView(View):
+class CartItemsViewData(View):
     def get(self, request):
         total_quantity = self.get_cart_items_for_current_user(request)
 
@@ -130,6 +129,43 @@ class CartItemsView(View):
             total_quantity = 0
 
         return total_quantity
+
+class CartListView(View):
+    def get(self, request):
+        cart_items = self.get_cart_items_for_current_user(request)
+        shippingTax = ShippingTax.objects.first()
+
+
+        price_array = []
+
+        for subtotal in cart_items:
+            price_array.append(subtotal.quantity * subtotal.price)
+
+        total = sum(price_array) + shippingTax.tax + shippingTax.shipping
+
+        tax = shippingTax.tax * sum(price_array)
+
+        context = {
+            'cart_items': cart_items,
+            'subtotal': sum(price_array),
+            'shipping': shippingTax.shipping,
+            'tax': tax,
+            'total': total
+        }
+
+        template_name = 'store/cart_list.html'
+        return render(request, template_name=template_name, context=context)
+
+    def get_cart_items_for_current_user(self, request):
+        if request.user.is_authenticated:
+            cart_items = CartItem.objects.filter(cart__user=request.user)
+            total_quantity = cart_items.aggregate(total_quantity=Sum("quantity"))[
+                "total_quantity"
+            ]
+        else:
+            cart_items = []
+
+        return cart_items
 
 
 
