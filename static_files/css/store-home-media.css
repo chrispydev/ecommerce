@@ -13,13 +13,6 @@
 }
 /* CSS for screens with a maximum width of 425 pixels */
 @media (max-width: 425px) {
-  .product__wrapper {
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-gap: 1rem;
-    margin: 3rem 1rem 0rem 1rem;
-  }
-
   .products {
     grid-template-columns: 1fr;
   }
@@ -58,7 +51,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 1rem;
-    /* margin: 4rem 2rem 0rem 2rem; */
+    margin: 4rem 2rem 0rem 2rem;
   }
 
   .categories {
@@ -75,5 +68,14 @@
     display: block;
     margin-bottom: 0.7rem;
     margin: 0rem 1rem 1rem 1rem;
+  }
+
+  .product__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1rem;
+    margin: 4rem 2rem 0rem 2rem;
+    margin-left: auto;
+    margin-right: auto;
   }
 }

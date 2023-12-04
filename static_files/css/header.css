@@ -125,7 +125,7 @@
   text-transform: uppercase;
 }
 
-.cart__section {
+.cart__section__header {
   margin-left: auto;
   color: var(--primary-color);
 }
