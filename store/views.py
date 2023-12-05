@@ -2,7 +2,7 @@ from django.views.generic import ListView, DetailView
 from store.models import Product, Order, OrderItem, Cart, CartItem, Category, ShippingTax
 from django.views import View
 from django.db.models import Sum,F
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -199,3 +199,24 @@ class OrderDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['orderitems'] = self.object.orderitem_set.all()
         return context
+
+
+class CartItemUpdateView(View):
+    def post(self, request, pk):
+        cart_item = get_object_or_404(CartItem, id=pk)
+
+        action = request.POST.get('action')
+
+        if action == 'decrease':
+            if cart_item.quantity > 1:
+                cart_item.quantity -= 1
+                cart_item.save()
+            elif cart_item.quantity == 1:
+                cart_item.delete()
+        elif action == 'increase':
+            cart_item.quantity += 1
+            cart_item.save()
+        elif action == 'remove':
+            cart_item.delete()
+
+        return redirect('cart_list')  # Replace 'cart' with the URL name for your cart view
