@@ -7,6 +7,7 @@ from customer.models import Customer
 from django.utils.translation import gettext as _
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth import password_validation
+from django.core.exceptions import ValidationError
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
@@ -39,10 +40,16 @@ class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
     first_name = forms.CharField(max_length=50)
     last_name = forms.CharField(max_length=50)
-
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email']
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        existing_user = User.objects.exclude(pk=self.instance.pk).filter(email=email).exists()
+        if existing_user:
+            raise ValidationError("This email address is already in use.")
+        return email
 
 
 class CustomerUpdateForm(forms.ModelForm):

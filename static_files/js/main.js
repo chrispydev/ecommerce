@@ -155,7 +155,14 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(function (data) {
           // Update cart icon
           document.querySelector('#cart__info').textContent = data.cart_count;
-          // Update cart items in the navbar
+          // Update the message section
+          document.querySelector('#cart__message').style.display = 'block';
+          document.querySelector('#cart__message').innerHTML = `
+           <p>Product added succesfully</p>
+          `;
+          setTimeout(() => {
+            document.querySelector('#cart__message').style.display = 'none';
+          }, 2000);
         });
     });
   }

@@ -4,8 +4,10 @@ from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth import login
 from customer.models import Message
+from django.contrib.auth.models import User
 from customer.forms import UserRegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordResetView
 from customer.forms import UserUpdateForm, CustomerUpdateForm
 
 class RegisterForm(View):
@@ -28,7 +30,7 @@ class RegisterForm(View):
         return render(request, template_name, {'user_form': user_form})
 
 
-class AccountView(View):
+class AccountView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, template_name='customer/account.html')
 
@@ -41,6 +43,13 @@ class ProfileView(View, LoginRequiredMixin):
             u_form.save()
             c_form.save()
             return redirect('profile')
+        else:
+            template_name = 'customer/profile.html'
+            context = {
+                'u_form': u_form,
+                'c_form': c_form,
+            }
+            return render(request, template_name, context)
 
     def get(self, request):
         u_form = UserUpdateForm(instance=request.user)
@@ -67,4 +76,20 @@ class MessageListView(LoginRequiredMixin, ListView):
 
         return queryset
 
+
+class CustomPasswordResetDoneView(PasswordResetView):
+    template_name = 'customer/password_reset.html'
+
+    def form_valid(self, form):
+        # Check if the email address is registered
+        email = form.cleaned_data.get('email')
+        user = User.objects.filter(email=email).first()  # Replace User with your User model
+
+        if user is None:
+            # Display an alert or flash message
+            messages.warning(self.request, 'The provided email address is not registered.')
+            return redirect('password_reset')
+
+
+        return super().form_valid(form)
 
