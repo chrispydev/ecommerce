@@ -120,6 +120,14 @@
   outline: 0;
 }
 
+.auth__div:hover > * {
+  color: #949da1;
+}
+
+.cart__div:hover > * {
+  color: #949da1 !important;
+}
+
 .auth__name {
   margin-bottom: 0;
   text-transform: uppercase;

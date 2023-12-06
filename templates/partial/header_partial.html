@@ -34,15 +34,15 @@
     </div>
     <!-- add to cart -->
     <div class="cart__section__header">
-      <a href="{% url 'cart_list' %}">
-        <button class="cart__button cart">
+      <a class="cart__div" href="{% url 'cart_list' %}">
+        <button class="cart__button cart cart__div">
           <i class="fa-solid fa-cart-shopping"></i>
           <span id="cart__info">0</span>
         </button>
-        <button id="toggleBtn" class="cart__button menu__bars">
-          <i class="fa-solid fa-bars-staggered"></i>
-        </button>
       </a>
+      <button id="toggleBtn" class="cart__button menu__bars cart__div">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
   </nav>
 </div>

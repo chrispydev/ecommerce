@@ -26,11 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   // dropdown function
-  userDetailDropdown.onclick = function () {
-    document
-      .getElementById('dropdown__menu')
-      .classList.toggle('down__menu-show');
-  };
+  if (userDetailDropdown) {
+    userDetailDropdown.onclick = function () {
+      document
+        .getElementById('dropdown__menu')
+        .classList.toggle('down__menu-show');
+    };
+  }
 
   searchProductBtn.addEventListener('click', function () {
     const searchQuery = search.value;
@@ -129,9 +131,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
   /* toggling the show categories */
-  ca_.onclick = function () {
-    document.getElementById('cate_hide_').classList.toggle('hideToggle');
-  };
+  if (ca_) {
+    ca_.onclick = function () {
+      document.getElementById('cate_hide_').classList.toggle('hideToggle');
+    };
+  }
 
   // Handle Add to Cart button click
   var addToCartButtons = document.getElementsByClassName('add-to-cart-btn');
@@ -150,7 +154,19 @@ document.addEventListener('DOMContentLoaded', function () {
         body: 'product_id=' + productID,
       })
         .then(function (response) {
-          return response.json();
+          if (!response.ok) {
+            console.log('error');
+            // Update the message section
+            document.querySelector('#cart__message').style.display = 'block';
+            document.querySelector('#cart__message').innerHTML = `
+           <p>Please login first</p>
+          `;
+            setTimeout(() => {
+              document.querySelector('#cart__message').style.display = 'none';
+            }, 2000);
+          } else if (response.ok) {
+            return response.json();
+          }
         })
         .then(function (data) {
           // Update cart icon

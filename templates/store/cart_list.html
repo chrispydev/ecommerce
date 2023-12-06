@@ -3,28 +3,43 @@
 {% block content %}
 <section class="cart__wrapper">
     {% if cart_items %}
-    <h1 class="cart__header">Cart</h1>
-    <section class="cart__section">
-        <article>
-            <div class="cart__heading">
-                <h5>Item</h5>
-                <h5>Quantity</h5>
-                <h5>Price</h5>
-                <h5>Total</h5>
-            </div>
-            <hr />
+    <h1 class="cart__header">Your Cart</h1>
+    <section class="cart__mobile__wrapper">
+        <section class="mobile__cart">
             {% for cart_item in cart_items %}
-            <div>
-                <div class="cart__item">
-                    <!-- items -->
-                    <div class="cartdetail__image">
-                        <img class="cart__image" src="{{ cart_item.product.product_image }}"
-                            alt="{{ cart_item.product.description }}">
-                        <p class="cart__title">{{ cart_item.product.name|truncatechars:40 }}</p>
+            <hr />
+            <div class="mobile__cart__width">
+                <!-- cart product -->
+                <div class="cart_mobile__width">
+                    <img src="{{ cart_item.product.product_image }}" />
+                    <h3 class="price__tag">
+                        GHC{{cart_item.product.price}}
+                    </h3>
+                </div>
+                <!-- Price -->
+                <div>
+                    <div class="cart__name">
+                        <h3>
+                            {{ cart_item.product.name|truncatechars:100 }}
+                        </h3>
                     </div>
-                    <!-- Quantity -->
-                    <div class="cart__quantity">
-                        <div class="cart__buttons">
+                    <!-- Total -->
+                    <div class="cart__name">
+                        <h3>Price {{cart_item.quantity}}x GHC{{cart_item.product.price}}</h3>
+                        <h3>SubTotal: GHC{{cart_item.subtotal}}</h3>
+                    </div>
+
+                    <div class="cart__quantity__mobile">
+                        <div class="cart__delete__mobile">
+                            <form action="{% url 'cart_update' cart_item.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="action" value="remove" class="shadow">
+                                    Delete
+                                    <i class="fas fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="cart__mobile__button">
                             <form action="{% url 'cart_update' cart_item.id %}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" name="action" value="decrease" class="shadow">
@@ -40,31 +55,14 @@
                             </form>
 
                         </div>
-                        <div class="cart__delete_">
-                            <form action="{% url 'cart_update' cart_item.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" name="action" value="remove" class="shadow">
-                                    Delete
-                                    <i class="fas fa-trash-can"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- Price -->
-                    <div class="cart__color">
-                        <p>GHC{{cart_item.product.price}}</p>
-                    </div>
-                    <!-- Total -->
-                    <div class="cart__color">
-                        <p>GHC{{cart_item.subtotal}}</p>
                     </div>
                 </div>
-                <hr />
             </div>
+            <hr />
             {% endfor %}
-        </article>
-        <article>
-            <h1 class="cart__header">Summary</h1>
+        </section>
+        <article class="summary__wrapper">
+            <h1 class="">Summary</h1>
             <hr />
             <div class="summary">
                 <div>
@@ -84,39 +82,8 @@
                 <p>GHC{{total}}</p>
             </div>
             <hr />
-            <button class="checkout__button">Go to checkout</button>
+            <button class="checkout__button shadow">Go to checkout</button>
         </article>
-    </section>
-    <section class="mobile__cart">
-        {% for cart_item in cart_items %}
-        <div class="mobile__cart__width">
-            <!-- cart product -->
-            <div class="product shadow mobile__width">
-                <img src="{{ cart_item.product.product_image }}" />
-                <h3 class="price__tag">
-                    GHC{{cart_item.product.price}}
-                </h3>
-                <div class="product__name">
-                    <h3>
-                        {{ cart_item.product.name|truncatechars:50 }}
-                    </h3>
-                </div>
-
-            </div>
-            <!-- Price -->
-            <div>
-                <div class="cart__color">
-                    <h4>Price</h4>
-                    <p>GHC{{cart_item.product.price}}</p>
-                </div>
-                <!-- Total -->
-                <div class="cart__color">
-                    <h4>Total Price</h4>
-                    <p>GHC{{cart_item.subtotal}}</p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
     </section>
     {% else %}
     <h1>Your cart is empty </h1>

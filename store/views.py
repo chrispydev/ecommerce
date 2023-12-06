@@ -71,7 +71,7 @@ class SearchViewList(View):
         }
         return render(request, 'store/category_products.html', context)
 
-class AddToCartView(View):
+class AddToCartView(View, LoginRequiredMixin):
     def post(self, request, *args, **kwargs):
         product_id = request.POST.get("product_id")
         product = Product.objects.get(id=product_id)
@@ -110,7 +110,7 @@ class AddToCartView(View):
         return JsonResponse({"cart_count": cart_count})
 
 
-class CartItemsViewData(View):
+class CartItemsViewData(View, LoginRequiredMixin):
     def get(self, request):
         total_quantity = self.get_cart_items_for_current_user(request)
 
@@ -130,7 +130,7 @@ class CartItemsViewData(View):
 
         return total_quantity
 
-class CartListView(View):
+class CartListView(View, LoginRequiredMixin):
     def get(self, request):
         cart_items = self.get_cart_items_for_current_user(request)
         shippingTax = ShippingTax.objects.first()
@@ -169,7 +169,7 @@ class CartListView(View):
 
 
 
-class OrderListView(ListView):
+class OrderListView(ListView, LoginRequiredMixin):
     model = Order
     template_name = 'store/orders.html'
     context_object_name = 'orders'
@@ -201,7 +201,7 @@ class OrderDetailView(DetailView):
         return context
 
 
-class CartItemUpdateView(View):
+class CartItemUpdateView(View, LoginRequiredMixin):
     def post(self, request, pk):
         cart_item = get_object_or_404(CartItem, id=pk)
 
