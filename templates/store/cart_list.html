@@ -82,7 +82,9 @@
                 <p>GHC{{total}}</p>
             </div>
             <hr />
-            <button class="checkout__button shadow">Go to checkout</button>
+            <a href="{% url 'checkout' %}">
+                <button class="checkout__button shadow">Go to checkout</button>
+            </a>
         </article>
     </section>
     {% else %}

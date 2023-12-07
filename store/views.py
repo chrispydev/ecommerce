@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from store.forms import CheckoutForm, UserEmailUpdate
 import requests
 
 
@@ -219,4 +220,47 @@ class CartItemUpdateView(View, LoginRequiredMixin):
         elif action == 'remove':
             cart_item.delete()
 
-        return redirect('cart_list')  # Replace 'cart' with the URL name for your cart view
+        return redirect('cart_list')
+
+
+class CheckoutView(View):
+    def get(self, request):
+        cart_items = self.get_cart_items_for_current_user(request)
+
+        c_form = CheckoutForm(instance=request.user.customer)
+        u_form = UserEmailUpdate(instance=request.user)
+
+        shippingTax = ShippingTax.objects.first()
+
+        price_array = []
+
+        for subtotal in cart_items:
+            price_array.append(subtotal.quantity * subtotal.price)
+
+        total = sum(price_array) + shippingTax.tax + shippingTax.shipping
+
+        tax = shippingTax.tax * sum(price_array)
+
+        context = {
+            'subtotal': sum(price_array),
+            'shipping': shippingTax.shipping,
+            'tax': tax,
+            'total': total,
+            'c_form': c_form,
+            'u_form': u_form,
+            'cart_items': cart_items
+        }
+
+        template_name = 'store/checkout.html'
+        return render(request, template_name, context)
+
+    def get_cart_items_for_current_user(self, request):
+        if request.user.is_authenticated:
+            cart_items = CartItem.objects.filter(cart__user=request.user)
+            total_quantity = cart_items.aggregate(total_quantity=Sum("quantity"))[
+                "total_quantity"
+            ]
+        else:
+            cart_items = []
+
+        return cart_items

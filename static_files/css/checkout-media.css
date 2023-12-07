@@ -1,0 +1,35 @@
+/* Styles for screens 320px or below */
+@media (max-width: 320px) {
+}
+
+/* Styles for screens 640px or above */
+@media (min-width: 640px) {
+  .checkout__wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Styles for screens 768px or above */
+@media (min-width: 768px) {
+  .cart__item__div h4 {
+    font-size: 1rem;
+  }
+
+  .cart__summary img {
+    height: 90px;
+    width: 90px;
+  }
+}
+
+/* CSS for screens with a minimum width of 768px to 991px */
+@media (min-width: 1024px) {
+  .checkout__wrapper {
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin: 2rem 4rem 2rem 4rem;
+  }
+}
+
+/* CSS for screens with a minimum width of 992px to 1199px */
+@media (min-width: 1280px) {
+}
