@@ -6,11 +6,12 @@
   font-size: 1.3rem;
   font-weight: 300;
   color: var(--primary-color);
-  text-decoration: none;
+  text-decoration: underline;
+  transition: all 300ms ease-in-out;
 }
 
 .back__button:hover {
-  text-decoration: line-through;
+  margin-left: 1rem;
   color: var(--primary-color);
 }
 

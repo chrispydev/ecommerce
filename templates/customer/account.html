@@ -89,19 +89,19 @@
                 <div>
                     <div>
                         <h5 class="accountoder__header">Date Placed</h5>
-                        <p class="account__detail">14th March 2020</p>
+                        <p class="account__detail">{{ last_order.created_at }}</p>
                     </div>
                 </div>
                 <div>
                     <div>
                         <h5 class="accountoder__header">Order Number</h5>
-                        <p class="account__detail">#1000</p>
+                        <p class="account__detail">{{ last_order.order_id }}</p>
                     </div>
                 </div>
                 <div>
                     <div>
                         <h5 class="accountoder__header">Total amount</h5>
-                        <p class="account__detail">GHC 803.00</p>
+                        <p class="account__detail">GHS{{ last_order.total }}</p>
                     </div>
                 </div>
             </div>

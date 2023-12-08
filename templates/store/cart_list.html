@@ -13,7 +13,7 @@
                 <div class="cart_mobile__width">
                     <img src="{{ cart_item.product.product_image }}" />
                     <h3 class="price__tag">
-                        GHC{{cart_item.product.price}}
+                        GHS{{cart_item.product.price}}
                     </h3>
                 </div>
                 <!-- Price -->
@@ -25,8 +25,8 @@
                     </div>
                     <!-- Total -->
                     <div class="cart__name">
-                        <h3>Price {{cart_item.quantity}}x GHC{{cart_item.product.price}}</h3>
-                        <h3>SubTotal: GHC{{cart_item.subtotal}}</h3>
+                        <h3>Price {{cart_item.quantity}}x GHS{{cart_item.product.price}}</h3>
+                        <h3>SubTotal: GHS{{cart_item.subtotal}}</h3>
                     </div>
 
                     <div class="cart__quantity__mobile">
@@ -71,15 +71,15 @@
                     <p>Taxes</p>
                 </div>
                 <div>
-                    <p>GHC{{subtotal}}</p>
-                    <p>GHC{{shipping}}</p>
-                    <p>GHC{{tax}}</p>
+                    <p>GHS{{subtotal}}</p>
+                    <p>GHS{{shipping}}</p>
+                    <p>GHS{{tax}}</p>
                 </div>
             </div>
             <hr />
             <div class="total">
                 <p>Total</p>
-                <p>GHC{{total}}</p>
+                <p>GHS{{total}}</p>
             </div>
             <hr />
             <a href="{% url 'checkout' %}">
