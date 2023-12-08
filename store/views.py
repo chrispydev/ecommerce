@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from store.forms import CheckoutForm, UserEmailUpdate
 import requests
-
+from django.views.decorators.csrf import csrf_exempt
 
 class ProductListView(ListView):
     model = Product

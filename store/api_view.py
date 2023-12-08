@@ -1,12 +1,15 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from store.models import Product, Category
+from store.models import Product, Category, Order, OrderItem, Cart, CartItem
 from store.serializers import ProductSerializer
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
 from faker import Faker
-
+from django.db import transaction
+from rest_framework.exceptions import ValidationError
+from rest_framework import status
+from store.textMessage import send_message
 
 class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
@@ -71,3 +74,38 @@ class ReportView(APIView):
             raise exceptions.ValidationError(
                 'date is null'
             )
+
+
+class OrderConfirmView(APIView):
+    def post(self, request):
+        user = request.user
+        total = request.data.get('total')
+        payment_method = request.data.get('payment_method')
+        print(request.data.get('total'))
+        print(request.data.get('payment_method'))
+
+        if not total or not payment_method:
+            raise ValidationError('Total and payment method are required.')
+
+        with transaction.atomic():
+            order = Order.objects.create(user=user, total=total, payment_method=payment_method)
+
+            # Retrieve the user's cart
+            try:
+                cart = Cart.objects.get(user=user)
+            except Cart.DoesNotExist:
+                return Response({"message": "Cart not found"}, status=status.HTTP_404_NOT_FOUND)
+
+            # Retrieve the cart items and create OrderItem objects for each item in the cart
+            cart_items = CartItem.objects.filter(cart=cart)
+            for cart_item in cart_items:
+                OrderItem.objects.create(order=order, product=cart_item.product, quantity=cart_item.quantity)
+
+            # Delete the cart items
+            cart_items.delete()
+
+            # Delete the cart
+            cart.delete()
+            send_message()
+
+        return Response({"message": "Order saved and cart items deleted"})

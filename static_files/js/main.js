@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function () {
     'search__product__mobile'
   );
 
+  // Payment method
+  const paymentButton = document.querySelector('#checkout__button');
+
   toggleBtn.onclick = function () {
     document
       .getElementById('navopen__toggle')
@@ -181,6 +184,71 @@ document.addEventListener('DOMContentLoaded', function () {
           }, 2000);
         });
     });
+  }
+
+  // Payment method
+  if (paymentButton) {
+    paymentButton.addEventListener('click', () => {
+      var reference = Date.now().toString(); // Generate a unique reference based on the current timestamp
+
+      var paystackPopup = PaystackPop.setup({
+        key: 'pk_test_098b290ad40589ec8a95cc8d28d15c3708f2f6ef',
+        email: 'christianowusu44@gmail.com',
+        amount: 500000, // Payment amount in kobo (e.g., 500000 represents ₦5,000.00)
+        currency: 'GHS', // Currency code (e.g., NGN for Nigerian Naira)
+        ref: reference, // Use the unique reference for the transaction
+        callback: function (response) {
+          // Handle the payment response
+          if (response.status === 'success') {
+            // Make an AJAX request to save the order and delete cart items
+            saveOrderAndDeleteCartItems(reference);
+            // window.location.href = `http://localhost:8000/`;
+            document.querySelector('#cart__message').style.display = 'block';
+            document.querySelector('#cart__message').innerHTML = `
+           <p>Thank you for ordering</p>
+          `;
+            setTimeout(() => {
+              document.querySelector('#cart__message').style.display = 'none';
+            }, 2000);
+          } else if (response.status !== 'success') {
+            alert(response.status);
+            // window.location.href = `http://localhost:8000/`;
+          }
+        },
+      });
+      paystackPopup.openIframe();
+    });
+  }
+
+  // save order into the database
+  function saveOrderAndDeleteCartItems() {
+    var csrfToken = getCookie('csrftoken');
+    total = document.getElementById('total').innerText;
+    const payment_method = 'Mobile Money';
+    var requestData = {
+      total: total,
+      payment_method: payment_method,
+    };
+    fetch('/api/order-confirm/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken,
+      },
+      body: JSON.stringify(requestData), // Convert the request body to JSON format
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log('Order saved and cart items deleted');
+          // Redirect or perform any additional actions as needed
+        } else {
+          throw new Error('Error saving order and deleting cart items');
+        }
+      })
+      .catch((error) => {
+        console.error('Error saving order and deleting cart items:', error);
+        // Handle the error accordingly
+      });
   }
 
   // Function to get CSRF cookie value

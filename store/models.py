@@ -38,6 +38,8 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order_id = models.UUIDField(default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    payment_method = models.CharField(max_length=100, default='mobile money')
 
     def save(self, *args, **kwargs):
         # Generate a new order_id if it is not already set

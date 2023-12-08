@@ -24,9 +24,12 @@
                     <p>QTY: {{ cart_item.quantity }}</p>
                 </div>
             </div>
+            <hr />
             {% endfor %}
         </div>
-        <button class="modify__cart shadow">Modify Cart</button>
+        <a href="{% url 'cart_list' %}">
+            <button class="modify__cart shadow">Modify Cart</button>
+        </a>
     </article>
     <article class="summary__wrapper">
         <h1 class="">Summary</h1>
@@ -46,12 +49,11 @@
         <hr />
         <div class="total">
             <p>Total</p>
-            <p>GHC{{total}}</p>
+            <p>GHC<span id="total">{{total}}</span></p>
         </div>
         <hr />
-        <a href="{% url 'checkout' %}">
-            <button class="checkout__button shadow">Proceed to Payment</button>
-        </a>
+        <button id="checkout__button" class="checkout__button shadow">Proceed to
+            Payment</button>
     </article>
 </section>
 {% endblock %}
