@@ -44,7 +44,7 @@
 
   .categories__mobile a:hover {
     color: var(--primary-color);
-    text-decoration: line-through;
+    text-decoration: ord;
   }
 
   .product__wrapper {

@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django.contrib import messages
 from django.contrib.auth import login
 from customer.models import Message
+from store.models import Order
 from django.contrib.auth.models import User
 from customer.forms import UserRegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -32,7 +33,16 @@ class RegisterForm(View):
 
 class AccountView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, template_name='customer/account.html')
+        user = request.user
+        last_message = Message.objects.filter(user=user).order_by('-date_received').first()
+        last_order = Order.objects.filter(user=user).order_by('-created_at').first()
+
+        context = {
+            'last_message': last_message,
+            'last_order': last_order
+        }
+
+        return render(request, template_name='customer/account.html', context=context)
 
 class ProfileView(View, LoginRequiredMixin):
     def post(self, request):

@@ -3,7 +3,7 @@
     <!-- navigation menu -->
     <div class="navigation__menu">
         <div class="account__name__menu">
-            <a href="" class="menu__name">
+            <a href="{% url 'account' %}" class="menu__name">
                 <i class="fa-solid fa-certificate"></i>
                 <span>Overview</span>
             </a>
@@ -81,11 +81,10 @@
         <hr />
         <div>
             <div>
-                <a class="overview__header" href="">Recent Message</a>
-                <p class="overview__detail__info">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam,
-                    quasi?</p>
+                <a class="overview__header" href="{% url 'inbox' %}">Recent Message</a>
+                <p class="overview__detail__info">{{last_message.message}}</p>
             </div>
-            <a class="overview__header" href="">Recent Order</a>
+            <a class="overview__header" href="{% url 'orders' %}">Recent Order</a>
             <div class="account__order">
                 <div>
                     <div>

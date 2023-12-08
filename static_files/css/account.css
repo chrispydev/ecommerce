@@ -25,7 +25,7 @@
 }
 
 .account__name__menu:hover a {
-  text-decoration: line-through;
+  text-decoration: underline;
   color: var(--primary-color);
 }
 
@@ -40,7 +40,7 @@
 }
 
 .overview__header:hover {
-  text-decoration: line-through;
+  text-decoration: underline;
 }
 
 .accountoder__header {

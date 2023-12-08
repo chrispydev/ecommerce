@@ -81,8 +81,6 @@ class OrderConfirmView(APIView):
         user = request.user
         total = request.data.get('total')
         payment_method = request.data.get('payment_method')
-        print(request.data.get('total'))
-        print(request.data.get('payment_method'))
 
         if not total or not payment_method:
             raise ValidationError('Total and payment method are required.')
@@ -99,7 +97,7 @@ class OrderConfirmView(APIView):
             # Retrieve the cart items and create OrderItem objects for each item in the cart
             cart_items = CartItem.objects.filter(cart=cart)
             for cart_item in cart_items:
-                OrderItem.objects.create(order=order, product=cart_item.product, quantity=cart_item.quantity)
+                OrderItem.objects.create(order=order, product=cart_item.product, price=cart_item.price,quantity=cart_item.quantity)
 
             # Delete the cart items
             cart_items.delete()
@@ -108,4 +106,4 @@ class OrderConfirmView(APIView):
             cart.delete()
             send_message()
 
-        return Response({"message": "Order saved and cart items deleted"})
+        return Response({"message": "Thank you"})

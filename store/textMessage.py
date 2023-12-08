@@ -7,4 +7,4 @@ def send_message():
 
     message = client.messages.create(from_="+16092566864", body="Thank you for ordering", to="+233553782097")
 
-    print(message.sid)
+    print(f"message sent with message.sid:{message.sid}")

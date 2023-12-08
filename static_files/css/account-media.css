@@ -79,7 +79,7 @@
 
   .overview__header:hover {
     color: var(--primary-color);
-    text-decoration: line-through;
+    text-decoration: underline;
   }
 }
 

@@ -52,9 +52,9 @@
 }
 
 .order__image img {
-  width: 200px;
-  height: 350px;
-  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
 }
 
 .orderproduct__detail {

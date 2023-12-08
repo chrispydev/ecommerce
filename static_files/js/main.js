@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
           // Update the message section
           document.querySelector('#cart__message').style.display = 'block';
           document.querySelector('#cart__message').innerHTML = `
-           <p>Product added succesfully</p>
+          <p>Product added succesfully</p>
           `;
           setTimeout(() => {
             document.querySelector('#cart__message').style.display = 'none';
@@ -189,27 +189,26 @@ document.addEventListener('DOMContentLoaded', function () {
   // Payment method
   if (paymentButton) {
     paymentButton.addEventListener('click', () => {
+      alert('Please do not close the browser until you are redirected');
       var reference = Date.now().toString(); // Generate a unique reference based on the current timestamp
+      const total = document.getElementById('total').innerText;
+      const email = document.querySelector('#id_email').value;
+      var pesewasAmount = total * 100; // Equivalent amount in Pesewas
+      console.log(pesewasAmount);
 
       var paystackPopup = PaystackPop.setup({
         key: 'pk_test_098b290ad40589ec8a95cc8d28d15c3708f2f6ef',
-        email: 'christianowusu44@gmail.com',
-        amount: 500000, // Payment amount in kobo (e.g., 500000 represents ₦5,000.00)
-        currency: 'GHS', // Currency code (e.g., NGN for Nigerian Naira)
+        email: email,
+        amount: pesewasAmount.toFixed(2),
+        currency: 'GHS',
         ref: reference, // Use the unique reference for the transaction
         callback: function (response) {
           // Handle the payment response
           if (response.status === 'success') {
             // Make an AJAX request to save the order and delete cart items
             saveOrderAndDeleteCartItems(reference);
-            // window.location.href = `http://localhost:8000/`;
-            document.querySelector('#cart__message').style.display = 'block';
-            document.querySelector('#cart__message').innerHTML = `
-           <p>Thank you for ordering</p>
-          `;
-            setTimeout(() => {
-              document.querySelector('#cart__message').style.display = 'none';
-            }, 2000);
+            location.reload();
+            window.location.href = `http://localhost:8000/`;
           } else if (response.status !== 'success') {
             alert(response.status);
             // window.location.href = `http://localhost:8000/`;
@@ -239,7 +238,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
       .then((response) => {
         if (response.ok) {
-          console.log('Order saved and cart items deleted');
           // Redirect or perform any additional actions as needed
         } else {
           throw new Error('Error saving order and deleting cart items');
