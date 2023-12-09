@@ -189,33 +189,46 @@ document.addEventListener('DOMContentLoaded', function () {
   // Payment method
   if (paymentButton) {
     paymentButton.addEventListener('click', () => {
-      alert('Please do not close the browser until you are redirected');
       var reference = Date.now().toString(); // Generate a unique reference based on the current timestamp
       const total = document.getElementById('total').innerText;
       const email = document.querySelector('#id_email').value;
+      const address = document.querySelector('#id_address').value;
+      const phone_number = document.querySelector('#id_phone_number').value;
+      const location = document.querySelector('#id_location').value;
       var pesewasAmount = total * 100; // Equivalent amount in Pesewas
-      console.log(pesewasAmount);
+      const helperText = document.querySelectorAll('.form-text');
 
-      var paystackPopup = PaystackPop.setup({
-        key: 'pk_test_098b290ad40589ec8a95cc8d28d15c3708f2f6ef',
-        email: email,
-        amount: pesewasAmount.toFixed(2),
-        currency: 'GHS',
-        ref: reference, // Use the unique reference for the transaction
-        callback: function (response) {
-          // Handle the payment response
-          if (response.status === 'success') {
-            // Make an AJAX request to save the order and delete cart items
-            saveOrderAndDeleteCartItems(reference);
-            location.reload();
-            window.location.href = `http://localhost:8000/`;
-          } else if (response.status !== 'success') {
-            alert(response.status);
-            // window.location.href = `http://localhost:8000/`;
-          }
-        },
-      });
-      paystackPopup.openIframe();
+      if (
+        address.length === 0 ||
+        phone_number.length === 0 ||
+        location.length === 0
+      ) {
+        for (let index = 0; index < helperText.length; index++) {
+          const element = helperText[index];
+          element.className = 'form-text text-danger';
+        }
+      } else {
+        var paystackPopup = PaystackPop.setup({
+          key: 'pk_test_098b290ad40589ec8a95cc8d28d15c3708f2f6ef',
+          email: email,
+          amount: pesewasAmount.toFixed(2),
+          currency: 'GHS',
+          ref: reference, // Use the unique reference for the transaction
+          callback: function (response) {
+            // Handle the payment response
+            if (response.status === 'success') {
+              // Make an AJAX request to save the order and delete cart items
+              saveOrderAndDeleteCartItems(reference);
+              location.reload();
+              window.location.href = `http://localhost:8000/`;
+            } else if (response.status !== 'success') {
+              alert(response.status);
+              // window.location.href = `http://localhost:8000/`;
+            }
+          },
+        });
+        paystackPopup.openIframe();
+      }
     });
   }
 

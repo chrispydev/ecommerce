@@ -2,6 +2,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from store.models import Product, Category, Order, OrderItem, Cart, CartItem
+from customer.models import AdminContact
 from store.serializers import ProductSerializer
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
@@ -9,6 +10,8 @@ from faker import Faker
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
 from rest_framework import status
+from django.core.mail import send_mail
+from django.conf import settings
 from store.textMessage import send_message
 
 class ProductListAPIView(ListAPIView):
@@ -104,6 +107,34 @@ class OrderConfirmView(APIView):
 
             # Delete the cart
             cart.delete()
-            send_message()
+            try:
+                # send gmail
+                subject = 'Order Confirmation'
+                message = 'Thank you for your order has being confirmed 1!'
+                from_email = 'christianowusu44@gmail.com'
+                to_email = 'chrispydev.owusu@gmail.com'
+                send_mail(subject, message, from_email, [to_email])
+                # Delete the cart items
+                cart_items.delete()
+                # Delete the cart
+                cart.delete()
+            except Exception as e:
+                print(e)
+
+            # send text message
+            # send_message('Thank you shopping with us', user.customer.phone_number)
+
+        #    # Send email and text message to admin contacts
+        #     admin_contacts = AdminContact.objects.all()
+        #     for admin_contact in admin_contacts:
+        #         # Send email to admin contact
+        #         admin_subject = 'New Order Received'
+        #         admin_message = f"A new order has been received. Order ID: {order.id}"
+        #         admin_from_email = 'christianowusu44@gmail.com'
+        #         admin_to_email = admin_contact.emails
+        #         send_mail(admin_subject, admin_message, admin_from_email, [admin_to_email])
+
+        #         # Send text message to admin contact
+        #         send_message('New order received. Order ID: {order.id}', admin_contact.phone_numbers)
 
         return Response({"message": "Thank you"})

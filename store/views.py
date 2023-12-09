@@ -14,7 +14,11 @@ class ProductListView(ListView):
     model = Product
     context_object_name = "products"
     template_name = "store/index.html"
-    paginate_by = 9
+    paginate_by = 12
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.order_by('id')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -29,14 +33,14 @@ class ProductDetailView(DetailView):
 
 class CategoryProductListView(View):
 
-     def get(self, request, name):
+    def get(self, request, name):
         category_name = name
         categories = Category.objects.all()
-        queryset = Product.objects.all()
+        queryset = Product.objects.all().order_by('name')
         if category_name:
             queryset = queryset.filter(category__name__iexact=category_name)
 
-        paginator = Paginator(queryset, per_page=9)
+        paginator = Paginator(queryset, per_page=12)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 

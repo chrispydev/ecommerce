@@ -62,16 +62,17 @@
     <div>
         <div class="account__name__menu hide_mobile">
             <a href="{% url 'account' %}" class="menu__name">
-                <i class="fa-solid fa-chevron-left"></i>
-                <span>Account</span>
+                <!-- <i class="fa-solid fa-chevron-left"></i> -->
+                <span>← Account</span>
             </a>
         </div>
         <h1 class="inbox__header">Orders</h1>
         <hr />
         {% for order in orders %}
 
-
-        <h5 class="order__id">#{{ order.order_id}}</h5>
+        <a href="{% url 'order_detail' order.id %}">
+            <h5 class="order__id">#{{ order.order_id}}</h5>
+        </a>
         <div class="order__details">
             <p>{{ order.created_at|date:"F d,Y:H:i" }}</p>
             <p>{{order.total_price|floatformat:2}}</p>

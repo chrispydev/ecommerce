@@ -6,9 +6,9 @@ from django.utils import timezone
 
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    address = models.CharField(max_length=100, default='please add an address')
-    phone_number = PhoneNumberField(null=True, default='please add a number')
-    location = models.CharField(max_length=20, default="Adenta Madina")
+    address = models.CharField(max_length=100,null=True, help_text='Please this field is required')
+    phone_number = PhoneNumberField(null=True, help_text='Please this field is required')
+    location = models.CharField(max_length=20,null=True, help_text="Please this field is required")
 
     def __str__(self):
         return self.user.username
@@ -21,3 +21,22 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+
+class PhoneNumber(models.Model):
+    phone_number = PhoneNumberField(null=True, default='please add a number')
+
+    def __str__(self):
+        return f"{self.phone_number}"
+
+class Email(models.Model):
+    email = models.EmailField(max_length=255)
+
+    def __str__(self):
+        return self.email
+
+class AdminContact(models.Model):
+    emails = models.ManyToManyField(Email, blank=True)
+    phone_numbers = models.ManyToManyField(PhoneNumber, blank=True)
+
+    def __str__(self):
+        return f"Admin contact {self.id}"

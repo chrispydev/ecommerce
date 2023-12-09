@@ -9,6 +9,7 @@ from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
+
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 

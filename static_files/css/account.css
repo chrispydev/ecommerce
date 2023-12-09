@@ -65,6 +65,10 @@
   margin-right: 0.5rem;
 }
 
+.menu__name span {
+  text-decoration: underline;
+}
+
 .menu__name span,
 .menu__name a {
   color: #444;
