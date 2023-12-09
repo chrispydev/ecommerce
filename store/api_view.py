@@ -2,7 +2,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from store.models import Product, Category, Order, OrderItem, Cart, CartItem
-from customer.models import AdminContact, Customer
+from customer.models import Customer, AdminContact
 from store.serializers import ProductSerializer
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
@@ -112,6 +112,7 @@ class OrderConfirmView(APIView):
             try:
                 self.save_customer(user, address, phone_number, location)
                 send_message('New order received. Order ID: {order.id}', '+233553782097')
+                self.send_admin_message_text()
             except Customer.DoesNotExist:
                 return Response({"message": "Customer not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -137,30 +138,16 @@ class OrderConfirmView(APIView):
         to_email = to_email
         send_mail(subject, message, from_email, [to_email])
 
+    def send_admin_message_text(self):
+        admin_contacts = AdminContact.objects.all()
+        for admin_contact in admin_contacts:
+            admin_subject = 'New Order Received'
+            admin_message = f"A new order has been received."
+            admin_from_email = 'christianowusu44@gmail.com'
+            admin_to_email = admin_contact.email
+            admin_to_contact = admin_contact.phone_number
+            # send email to admin email
+            send_mail(admin_subject, admin_message, admin_from_email, [admin_to_email])
 
-
-
-
-
-
-
-
-
-
-
-
-# send text message
-            # send_message('Thank you shopping with us', user.customer.phone_number)
-
-        #    # Send email and text message to admin contacts
-        #     admin_contacts = AdminContact.objects.all()
-        #     for admin_contact in admin_contacts:
-        #         # Send email to admin contact
-        #         admin_subject = 'New Order Received'
-        #         admin_message = f"A new order has been received. Order ID: {order.id}"
-        #         admin_from_email = 'christianowusu44@gmail.com'
-        #         admin_to_email = admin_contact.emails
-        #         send_mail(admin_subject, admin_message, admin_from_email, [admin_to_email])
-
-        #         # Send text message to admin contact
-        #         send_message('New order received. Order ID: {order.id}', admin_contact.phone_numbers)
+            # Send text message to admin phone number
+            send_message('New order received', admin_to_contact)

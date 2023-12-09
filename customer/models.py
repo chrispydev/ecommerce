@@ -22,21 +22,9 @@ class Message(models.Model):
     def __str__(self):
         return self.message
 
-class PhoneNumber(models.Model):
-    phone_number = PhoneNumberField(null=True, default='please add a number')
-
-    def __str__(self):
-        return f"{self.phone_number}"
-
-class Email(models.Model):
+class AdminContact(models.Model):
+    phone_number = PhoneNumberField(null=True)
     email = models.EmailField(max_length=255)
 
     def __str__(self):
-        return self.email
-
-class AdminContact(models.Model):
-    emails = models.ManyToManyField(Email, blank=True)
-    phone_numbers = models.ManyToManyField(PhoneNumber, blank=True)
-
-    def __str__(self):
-        return f"Admin contact {self.id}"
+        return f"{self.phone_number} && {self.email}"

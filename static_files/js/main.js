@@ -218,10 +218,10 @@ document.addEventListener('DOMContentLoaded', function () {
             // Handle the payment response
             if (response.status === 'success') {
               // Make an AJAX request to save the order and delete cart items
+              document.getElementById('preloader').classList.toggle('hide');
               saveOrderAndDeleteCartItems(address, phone_number, location);
             } else if (response.status !== 'success') {
               alert(response.status);
-              // window.location.href = `http://localhost:8000/`;
             }
           },
         });
