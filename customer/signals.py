@@ -20,4 +20,4 @@ def send_message_on_save(sender, instance, created, **kwargs):
     if created:
         message_body = instance.message
         to_phone_number = instance.user.customer.phone_number
-        send_message(message_body, to=to_phone_number)
+        send_message(message_body, to_phone_number=to_phone_number)
