@@ -218,9 +218,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Handle the payment response
             if (response.status === 'success') {
               // Make an AJAX request to save the order and delete cart items
-              saveOrderAndDeleteCartItems(reference);
-              location.reload();
-              window.location.href = `http://localhost:8000/`;
+              saveOrderAndDeleteCartItems(address, phone_number, location);
             } else if (response.status !== 'success') {
               alert(response.status);
               // window.location.href = `http://localhost:8000/`;
@@ -233,13 +231,16 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // save order into the database
-  function saveOrderAndDeleteCartItems() {
+  function saveOrderAndDeleteCartItems(address, location, phone_number) {
     var csrfToken = getCookie('csrftoken');
     total = document.getElementById('total').innerText;
     const payment_method = 'Mobile Money';
     var requestData = {
       total: total,
       payment_method: payment_method,
+      address: address,
+      location: location,
+      phone_number: phone_number,
     };
     fetch('/api/order-confirm/', {
       method: 'POST',
@@ -251,14 +252,13 @@ document.addEventListener('DOMContentLoaded', function () {
     })
       .then((response) => {
         if (response.ok) {
-          // Redirect or perform any additional actions as needed
+          window.location.href = `http://localhost:8000/order-confirm/`;
         } else {
           throw new Error('Error saving order and deleting cart items');
         }
       })
       .catch((error) => {
         console.error('Error saving order and deleting cart items:', error);
-        // Handle the error accordingly
       });
   }
 

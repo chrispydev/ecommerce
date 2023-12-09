@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from store.forms import CheckoutForm, UserEmailUpdate
 import requests
+from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 
 class ProductListView(ListView):
@@ -268,3 +269,25 @@ class CheckoutView(View):
             cart_items = []
 
         return cart_items
+
+
+class OrderConfirmView(DetailView):
+    model = Order
+    template_name = 'store/order_confirm.html'
+    context_object_name = 'order_confirm'
+
+    def get_object(self, queryset=None):
+        # Get the last order for the current user
+        user = self.request.user
+        last_order = Order.objects.filter(user=user).order_by('-id').first()
+        return last_order
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Retrieve all the OrderItem objects associated with the last order
+        order = self.get_object()
+        order_items = order.orderitem_set.all()
+        context['order_items'] = order_items
+        # Add a success message
+        messages.success(self.request, 'Thank you for ordering👍.')
+        return context

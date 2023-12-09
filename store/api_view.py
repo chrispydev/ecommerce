@@ -2,7 +2,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from store.models import Product, Category, Order, OrderItem, Cart, CartItem
-from customer.models import AdminContact
+from customer.models import AdminContact, Customer
 from store.serializers import ProductSerializer
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
@@ -84,9 +84,9 @@ class OrderConfirmView(APIView):
         user = request.user
         total = request.data.get('total')
         payment_method = request.data.get('payment_method')
-
-        if not total or not payment_method:
-            raise ValidationError('Total and payment method are required.')
+        address = request.data.get('address')
+        phone_number = request.data.get('phone_number')
+        location = request.data.get('location')
 
         with transaction.atomic():
             order = Order.objects.create(user=user, total=total, payment_method=payment_method)
@@ -107,21 +107,49 @@ class OrderConfirmView(APIView):
 
             # Delete the cart
             cart.delete()
+
+            # Update the customer
             try:
-                # send gmail
-                subject = 'Order Confirmation'
-                message = 'Thank you for your order has being confirmed 1!'
-                from_email = 'christianowusu44@gmail.com'
-                to_email = 'chrispydev.owusu@gmail.com'
-                send_mail(subject, message, from_email, [to_email])
-                # Delete the cart items
-                cart_items.delete()
-                # Delete the cart
-                cart.delete()
+                self.save_customer(user, address, phone_number, location)
+                send_message('New order received. Order ID: {order.id}', '+233553782097')
+            except Customer.DoesNotExist:
+                return Response({"message": "Customer not found"}, status=status.HTTP_404_NOT_FOUND)
+
+            # send gmail
+            try:
+                self.send_cemail(subject='Order Confirmation', message='Thank you for your order has being confirmed 1!', from_email='christianowusu44@gmail.com', to_email='chrispydev.owusu@gmail.com')
             except Exception as e:
                 print(e)
 
-            # send text message
+        return Response({"message": "Thank you"})
+
+    def save_customer(self, user, address, phone_number, location):
+        customer = user.customer
+        customer.address = address
+        customer.phone_number = phone_number
+        customer.location = location
+        customer.save()
+
+    def send_cemail(self, subject, message, from_email, to_email):
+        subject = subject
+        message = message
+        from_email = from_email
+        to_email = to_email
+        send_mail(subject, message, from_email, [to_email])
+
+
+
+
+
+
+
+
+
+
+
+
+
+# send text message
             # send_message('Thank you shopping with us', user.customer.phone_number)
 
         #    # Send email and text message to admin contacts
@@ -136,5 +164,3 @@ class OrderConfirmView(APIView):
 
         #         # Send text message to admin contact
         #         send_message('New order received. Order ID: {order.id}', admin_contact.phone_numbers)
-
-        return Response({"message": "Thank you"})
