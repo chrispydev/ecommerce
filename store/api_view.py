@@ -111,14 +111,14 @@ class OrderConfirmView(APIView):
             # Update the customer
             try:
                 self.save_customer(user, address, phone_number, location)
-                send_message('New order received. Order ID: {order.id}', '+233553782097')
+                # send_message('New order received. Order ID: {order.id}', '+233553782097')
                 self.send_admin_message_text()
             except Customer.DoesNotExist:
                 return Response({"message": "Customer not found"}, status=status.HTTP_404_NOT_FOUND)
 
             # send gmail
             try:
-                self.send_cemail(subject='Order Confirmation', message='Thank you for your order has being confirmed 1!', from_email='christianowusu44@gmail.com', to_email='chrispydev.owusu@gmail.com')
+                self.send_cemail(subject='Order Confirmation', message='Your order is being confirmed, Thank your for shopping with us', from_email='christianowusu44@gmail.com', to_email='chrispydev.owusu@gmail.com')
             except Exception as e:
                 print(e)
 
@@ -150,4 +150,4 @@ class OrderConfirmView(APIView):
             send_mail(admin_subject, admin_message, admin_from_email, [admin_to_email])
 
             # Send text message to admin phone number
-            send_message('New order received', admin_to_contact)
+            # send_message('New order received', admin_to_contact)

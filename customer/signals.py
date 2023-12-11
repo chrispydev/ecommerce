@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User
 from customer.models import Customer, Message
 from store.textMessage import send_message
+from django.core.mail import send_mail
 
 
 @receiver(post_save, sender=User)
@@ -20,4 +21,6 @@ def send_message_on_save(sender, instance, created, **kwargs):
     if created:
         message_body = instance.message
         to_phone_number = instance.user.customer.phone_number
-        send_message(message_body, to_phone_number=to_phone_number)
+        to_email = instance.user.email
+        # send_message(message_body, to_phone_number=to_phone_number)
+        send_mail('order info',message_body, 'christianowusu44@gmail.com', [to_email])

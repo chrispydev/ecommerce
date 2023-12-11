@@ -38,21 +38,23 @@
 
 .categories h2 {
   font-size: 1.8rem;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 .categories a {
-  text-decoration: none;
+  /* text-decoration: line-through; */
   color: var(--primary-color);
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  border-bottom: 1px solid var(--primary-color);
+  /* font-size: 1.2rem; */
+  font-size: 1rem;
+  /* margin-bottom: 1rem; */
+  margin-bottom: 0.4rem;
+  /* border-bottom: 1px solid var(--primary-color); */
   transition: all 300ms ease-in-out;
 }
 
 .categories a:hover {
   /* text-decoration: line-through; */
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   color: var(--primary-color);
   border-bottom: none;
 }
@@ -97,23 +99,23 @@
 
 .product__name {
   text-align: center;
-  transform: skew(-5deg) rotate(-1deg);
-  margin-top: -1rem;
+  /* transform: skew(-5deg) rotate(-1deg); */
+  /* margin-top: -1rem; */
   /* margin-top: -1.5rem; */
-  margin-bottom: 5rem;
-  text-shadow: 2px 2px 0 var(--primary-color);
+  margin-bottom: 3.5rem;
+  /* margin-bottom: 1rem; */
+  /* text-shadow: 2px 2px 0 var(--primary-color); */
 }
 
 .product__name h3 {
-  background: var(--primary-color);
+  /* background: var(--primary-color); */
   display: inline;
-  line-height: 1.3;
-  font-weight: 300;
+  font-weight: 500;
   /* font-size: 2rem; */
   /* font-size: 1rem; */
   font-size: 0.94rem;
   text-align: center;
-  color: white;
+  color: var(--primary-color);
   padding: 0 1rem;
 }
 
@@ -141,7 +143,8 @@
 
   & > a:hover {
     color: var(--primary-color);
-    text-decoration: line-through;
+    text-decoration: underline;
+    /* text-decoration: line-through; */
   }
 
   & .fa-cart-shopping {

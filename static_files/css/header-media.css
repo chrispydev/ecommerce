@@ -51,10 +51,10 @@
   .down__menu {
     max-width: 400px !important;
     position: fixed;
-    top: 4rem;
-    right: 9%;
+    top: 3.4rem;
+    /* top: 4rem; */
+    right: 12%;
     z-index: 20;
-    background-color: #fff;
     height: 0;
     display: none;
   }

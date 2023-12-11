@@ -2,12 +2,11 @@
 
 {% block content %}
 <section class="detail">
-    <div>
-        <img class="shadow" src="{{product.product_image}}" alt="" srcset="">
-        {% comment %}
-        <img class="shadow" src="{{product.product_image.url}}" alt="" srcset="">
-        {% endcomment %}
-    </div>
+    <img class="" src="{{product.product_image}}" alt="" srcset="">
+    {% comment %}
+    <img class="shadow" src="{{product.product_image.url}}" alt="" srcset="">
+    {% endcomment %}
+
     <div class="product__detail">
         <h4>{{product.name}}</h4>
         <p>{{product.description}}</p>

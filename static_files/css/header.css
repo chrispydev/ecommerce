@@ -216,31 +216,30 @@
 
 .menuauth__lint {
   text-align: left;
-  transform: skew(-5deg) rotate(0deg);
-  text-shadow: 2px 2px 0 var(--primary-color);
-  background: var(--primary-color);
   width: 100%;
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
+  background-color: #fff;
+  padding: 1rem;
 }
 
 .menuauth__lint i {
-  color: #fff;
+  /* color: #fff; */
+  color: var(--primary-color);
   margin-left: 0.8rem;
 }
 
 .menuauth__lint:hover a {
-  color: #fff;
-  text-decoration: line-through;
+  color: var(--primary-color);
+  text-decoration: underline;
 }
 
 .menuauth__lint a {
+  color: var(--primary-color);
   display: inline;
-  line-height: 1.3;
-  font-weight: 300;
-  font-size: 1.5rem;
+  font-weight: 600;
+  font-size: 0.8rem;
   margin-left: 0.8rem;
   text-align: left;
-  text-decoration: underline;
-  color: white;
+  text-decoration: none;
 }
