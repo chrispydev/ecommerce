@@ -25,7 +25,7 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                <label for="{{ user_form.password1.id_for_label }}">Password1</label>
+                <label for="{{ user_form.password1.id_for_label }}">Password</label>
                 {{ user_form.password1 }}
                 {% if form.password1.errors %}
                 {% for error in form.password1.errors %}
@@ -34,7 +34,7 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                <label for="{{ user_form.password2.id_for_label }}">Password2</label>
+                <label for="{{ user_form.password2.id_for_label }}">Confirm Password</label>
                 {{ user_form.password2 }}
                 {% if form.password2.errors %}
                 {% for error in form.password2.errors %}

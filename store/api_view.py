@@ -12,7 +12,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework import status
 from django.core.mail import send_mail
 from django.conf import settings
-from store.textMessage import send_message
+from store.text_message import send_text_message
 
 class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
@@ -111,8 +111,8 @@ class OrderConfirmView(APIView):
             # Update the customer
             try:
                 self.save_customer(user, address, phone_number, location)
-                # send_message('New order received. Order ID: {order.id}', '+233553782097')
                 self.send_admin_message_text()
+                send_text_message(phone_number,'Your order is being confirmed, Thank your for shopping with us')
             except Customer.DoesNotExist:
                 return Response({"message": "Customer not found"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -150,4 +150,4 @@ class OrderConfirmView(APIView):
             send_mail(admin_subject, admin_message, admin_from_email, [admin_to_email])
 
             # Send text message to admin phone number
-            # send_message('New order received', admin_to_contact)
+            send_text_message(admin_to_contact, 'New order received',)

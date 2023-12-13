@@ -74,6 +74,25 @@
   .mobile__sidemenu {
     display: none;
   }
+
+  .menuauth__lint {
+    text-align: left;
+    width: 100%;
+    margin-top: 0.4rem;
+    margin-bottom: -0.4rem;
+    background-color: #fff;
+    padding: 0.4rem 1rem 0.4rem 1rem;
+    position: relative;
+  }
+
+  .menuauth__lint:hover::after {
+    bottom: 0.4rem;
+  }
+
+  .menuauth__lint a {
+    font-weight: 600;
+    font-size: 0.89rem;
+  }
 }
 
 /* CSS for screens with a minimum width of 768px to 991px */

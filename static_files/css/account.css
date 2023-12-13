@@ -25,7 +25,7 @@
 }
 
 .account__name__menu:hover a {
-  text-decoration: underline;
+  text-decoration: none;
   color: var(--primary-color);
 }
 
@@ -65,8 +65,13 @@
   margin-right: 0.5rem;
 }
 
-.menu__name span {
+.menu__name span:hover {
   text-decoration: underline;
+}
+
+.menu__name .menu__name_auth:hover {
+  text-decoration: underline;
+  background-color: #fff;
 }
 
 .menu__name span,

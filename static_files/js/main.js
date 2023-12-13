@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (response.status === 'success') {
               // Make an AJAX request to save the order and delete cart items
               document.getElementById('preloader').classList.toggle('hide');
-              saveOrderAndDeleteCartItems(address, phone_number, location);
+              saveOrderAndDeleteCartItems(address, location, phone_number);
             } else if (response.status !== 'success') {
               alert(response.status);
             }

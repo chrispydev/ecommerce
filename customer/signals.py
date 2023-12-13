@@ -2,7 +2,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from customer.models import Customer, Message
-from store.textMessage import send_message
+from store.text_message import send_text_message
+from phonenumbers import format_number, PhoneNumberFormat
 from django.core.mail import send_mail
 
 
@@ -22,5 +23,9 @@ def send_message_on_save(sender, instance, created, **kwargs):
         message_body = instance.message
         to_phone_number = instance.user.customer.phone_number
         to_email = instance.user.email
-        # send_message(message_body, to_phone_number=to_phone_number)
+        # Convert PhoneNumber object to a string
+        to_phone_number_str = format_number(to_phone_number, PhoneNumberFormat.E164)
+        print(to_phone_number_str)
+        print(message_body)
+        send_text_message(to_phone_number_str, message_body)
         send_mail('order info',message_body, 'christianowusu44@gmail.com', [to_email])

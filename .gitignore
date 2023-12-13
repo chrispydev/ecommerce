@@ -53,3 +53,6 @@ node_modules/
 
 # extra code not to be added
 AmazonScraper/
+
+# root static file
+root_files/

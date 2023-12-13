@@ -11,8 +11,8 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=300)
-    # product_image = models.ImageField(upload_to='media_file', default='default.jpg')
     product_image = models.ImageField(upload_to='media_file', default='default.jpg')
+    product_image = models.URLField(default='http://localhost:8000/https%3A/images-na.ssl-images-amazon.com/images/I/616Vuoutx2L._AC_SX679_.jpg')
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default='iphone', null=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
@@ -20,6 +20,16 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    # def save(self, *args, **kwargs):
+    #     try:
+    #         current_product = Product.objects.get(id=self.id)
+    #         if current_product.product_image != self.product_image and current_product.product_image.name != 'default.jpg':
+    #             default_storage.delete(current_product.product_image.name)
+    #     except Product.DoesNotExist:
+    #         pass
+
+    #     super().save(*args, **kwargs)
 
 
 class OrderItem(models.Model):
@@ -40,6 +50,15 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     payment_method = models.CharField(max_length=100, default='mobile money')
+
+    ORDER_STATUSES = (
+        ('pending', 'Pending'),
+        ('confirmed', 'Confirmed'),
+        ('delivery', 'Delivery'),
+        ('delivered', 'Delivered'),
+    )
+
+    order_status = models.CharField(max_length=100, choices=ORDER_STATUSES, default='pending')
 
     def save(self, *args, **kwargs):
         # Generate a new order_id if it is not already set
