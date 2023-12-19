@@ -95,3 +95,12 @@ class CartItem(models.Model):
 class ShippingTax(models.Model):
     shipping = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     tax = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+
+class ShippingRate(models.Model):
+    country = models.CharField(max_length=100)
+    region = models.CharField(max_length=100)
+    nearest_location = models.CharField(max_length=20)
+    shipping_cost = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def __str__(self):
+        return f'{self.country} - {self.region} - {self.nearest_location}'

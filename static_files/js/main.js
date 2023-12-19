@@ -189,13 +189,15 @@ document.addEventListener('DOMContentLoaded', function () {
   // Payment method
   if (paymentButton) {
     paymentButton.addEventListener('click', () => {
+      console.log('text');
       var reference = Date.now().toString(); // Generate a unique reference based on the current timestamp
       const total = document.getElementById('total').innerText;
       const email = document.querySelector('#id_email').value;
       const address = document.querySelector('#id_address').value;
       const phone_number = document.querySelector('#id_phone_number').value;
       const location = document.querySelector('#id_location').value;
-      var pesewasAmount = total * 100; // Equivalent amount in Pesewas
+      let pesewasAmount = total * 100; // Equivalent amount in Pesewas
+      var pesewasAmount_ = pesewasAmount.toFixed(2); // Equivalent amount in Pesewas
       const helperText = document.querySelectorAll('.form-text');
 
       if (
@@ -211,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var paystackPopup = PaystackPop.setup({
           key: 'pk_test_098b290ad40589ec8a95cc8d28d15c3708f2f6ef',
           email: email,
-          amount: pesewasAmount.toFixed(2),
+          amount: pesewasAmount_,
           currency: 'GHS',
           ref: reference, // Use the unique reference for the transaction
           callback: function (response) {
