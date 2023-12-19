@@ -4,8 +4,8 @@ __pycache__/
 *.sqlite3
 
 # Django settings files
-settings*.py
-local_settings.py
+# settings*.py
+# local_settings.py
 
 # Static files
 staticfiles/
