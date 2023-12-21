@@ -52,7 +52,7 @@ pipenv.lock
 node_modules/
 
 # extra code not to be added
-AmazonScraper/
+# AmazonScraper/
 
 # root static file
 root_files/
