@@ -162,15 +162,14 @@ LOGIN_REDIRECT_URL = "product_home"
 LOGIN_URL = "login"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST = "mail.privateemail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "christianowusu44@gmail.com"
-EMAIL_HOST_PASSWORD = "ekod pgfa dwwm njaj"
+EMAIL_HOST_USER = "info@remgeeshop.com"
+EMAIL_HOST_PASSWORD = "Chris@20.com"
+DEFAULT_FROM_EMAIL = "info@remgeeshop.com"
 EMAIL_TIMEOUT = 10
 EMAIL_FAIL_SILENTLY = False
-# EMAIL_HOST_USER = 'christianowusu44@gmail.com'
-# EMAIL_HOST_PASSWORD = 'Chris@20.Com'
 
 
 # Default primary key field type
