@@ -118,7 +118,7 @@ class OrderConfirmView(APIView):
 
             # send gmail
             try:
-                self.send_cemail(subject='Order Confirmation', message='Your order is being confirmed, Thank your for shopping with us', from_email='christianowusu44@gmail.com', to_email='chrispydev.owusu@gmail.com')
+                self.send_cemail(subject='Order Confirmation', message='Your order is being confirmed, Thank your for shopping with us', from_email='info@remgeeshop.com', to_email=user.email)
             except Exception as e:
                 print(e)
 
@@ -143,7 +143,7 @@ class OrderConfirmView(APIView):
         for admin_contact in admin_contacts:
             admin_subject = 'New Order Received'
             admin_message = f"A new order has been received."
-            admin_from_email = 'christianowusu44@gmail.com'
+            admin_from_email = 'info@remgeeshop.com'
             admin_to_email = admin_contact.email
             admin_to_contact = admin_contact.phone_number
             # send email to admin email

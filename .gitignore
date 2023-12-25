@@ -56,3 +56,6 @@ node_modules/
 
 # root static file
 root_files/
+
+# aws key_pair
+remgeeshop.pem
