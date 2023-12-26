@@ -8,7 +8,9 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.CharField(max_length=100,null=True, help_text='Please this field is required')
     phone_number = PhoneNumberField(null=True, help_text='Please this field is required')
-    location = models.CharField(max_length=20,null=True, help_text="Please this field is required")
+    region = models.CharField(max_length=20,null=True, help_text="Please this field is required")
+    city = models.CharField(max_length=100,null=True, help_text="Please this field is required")
+    nearest_location = models.CharField(max_length=100,null=True, help_text="Please this field is required")
 
     def __str__(self):
         return self.user.username

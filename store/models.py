@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
+from store.region_cites import REGION_CHOICES, CITES_IN_REGION
 
 class Category(models.Model):
     name = models.CharField(max_length=250)
@@ -101,26 +102,8 @@ class CityManager(models.Manager):
         return self.filter(region=region)
 
 class ShippingRate(models.Model):
-    REGION_CHOICES = [
-        ('Ashanti Region', 'Ashanti Region'),
-        ('Brong-Ahafo Region', 'Brong-Ahafo Region'),
-        ('Central Region', 'Central Region'),
-        ('Eastern Region', 'Eastern Region'),
-        ('Greater Accra Region', 'Greater Accra Region'),
-        ('Northern Region', 'Northern Region'),
-        ('Upper East Region', 'Upper East Region'),
-        ('Upper West Region', 'Upper West Region'),
-        ('Volta Region', 'Volta Region'),
-        ('Western Region', 'Western Region'),
-        ('Western North Region', 'Western North Region'),
-        ('Oti Region', 'Oti Region'),
-        ('Savannah Region', 'Savannah Region'),
-        ('North East Region', 'North East Region'),
-        ('Bono Region', 'Bono Region'),
-        ('Ahafo Region', 'Ahafo Region')
-    ]
     region = models.CharField(max_length=100, choices=REGION_CHOICES)
-    city = models.CharField(max_length=100, default='please add a ciy')
+    city = models.CharField(max_length=100, choices=CITES_IN_REGION)
     nearest_location = models.CharField(max_length=20)
     shipping_cost = models.DecimalField(max_digits=6, decimal_places=2)
 
