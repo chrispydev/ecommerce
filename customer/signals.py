@@ -25,7 +25,5 @@ def send_message_on_save(sender, instance, created, **kwargs):
         to_email = instance.user.email
         # Convert PhoneNumber object to a string
         to_phone_number_str = format_number(to_phone_number, PhoneNumberFormat.E164)
-        print(to_phone_number_str)
-        print(message_body)
         send_text_message(to_phone_number_str, message_body)
-        send_mail('order info',message_body, 'christianowusu44@gmail.com', [to_email])
+        send_mail('order info',message_body, 'info@remgeeshop.com', [to_email])

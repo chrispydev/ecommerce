@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
     'search__product__mobile'
   );
 
-  // Payment method
+  // Payment
   const paymentButton = document.querySelector('#checkout__button');
 
   toggleBtn.onclick = function () {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (searchQuery.length === 0) {
       return;
     } else {
-      window.location.href = `http://localhost:8000/product-search/${searchQuery}/`;
+      window.location.href = `/product-search/${searchQuery}/`;
     }
   });
 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (searchQuery.length === 0) {
         return;
       } else {
-        window.location.href = `http://localhost:8000/product-search/${searchQuery}/`;
+        window.location.href = `/product-search/${searchQuery}/`;
       }
     }
   });
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (searchQuery.length === 0) {
       return;
     } else {
-      window.location.href = `http://localhost:8000/product-search/${searchQuery}/`;
+      window.location.href = `/product-search/${searchQuery}/`;
     }
   });
 
@@ -189,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // Payment method
   if (paymentButton) {
     paymentButton.addEventListener('click', () => {
-      console.log('text');
       var reference = Date.now().toString(); // Generate a unique reference based on the current timestamp
       const total = document.getElementById('total').innerText;
       const email = document.querySelector('#id_email').value;
@@ -236,10 +235,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function saveOrderAndDeleteCartItems(address, location, phone_number) {
     var csrfToken = getCookie('csrftoken');
     total = document.getElementById('total').innerText;
-    const payment_method = 'Mobile Money';
     var requestData = {
       total: total,
-      payment_method: payment_method,
       address: address,
       location: location,
       phone_number: phone_number,
@@ -254,8 +251,9 @@ document.addEventListener('DOMContentLoaded', function () {
     })
       .then((response) => {
         if (response.ok) {
-          window.location.href = `http://localhost:8000/order-confirm/`;
+          window.location.href = `/order-confirm/`;
         } else {
+          window.location.href = `/order-confirm/`;
           throw new Error('Error saving order and deleting cart items');
         }
       })

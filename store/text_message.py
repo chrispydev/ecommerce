@@ -2,7 +2,6 @@ import json
 import http.client as httpClient
 
 def send_text_message(receiver, message):
-    receive_ = str(receiver)
     try:
         host = "api.smsonlinegh.com"
         requestURI = "http://api.smsonlinegh.com/v5/message/sms/send"
@@ -19,7 +18,7 @@ def send_text_message(receiver, message):
         msgData["text"] = message
         msgData["type"] = 0
         msgData["sender"] = "RemGee"
-        msgData["destinations"] = [receive_]
+        msgData["destinations"] = ['0553782097']
 
         httpConn = httpClient.HTTPConnection(host)
         httpConn.request("POST", requestURI, json.dumps(msgData), headers)

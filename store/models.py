@@ -49,7 +49,6 @@ class Order(models.Model):
     order_id = models.UUIDField(default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     total = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    payment_method = models.CharField(max_length=100, default='mobile money')
 
     ORDER_STATUSES = (
         ('pending', 'Pending'),

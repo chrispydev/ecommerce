@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-0!q0nhqe3j3wy4axafob)ik5)^7@yg-^g(qv$8-r)5yxa0d=h%"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -150,8 +150,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = ((BASE_DIR / "static_files"),)
-STATIC_ROOT = ((BASE_DIR / "root_files"))
+STATICFILES_DIRS = [BASE_DIR / "static_files"]
+STATIC_ROOT = BASE_DIR / "root_files"
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"

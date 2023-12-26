@@ -83,13 +83,12 @@ class OrderConfirmView(APIView):
     def post(self, request):
         user = request.user
         total = request.data.get('total')
-        payment_method = request.data.get('payment_method')
         address = request.data.get('address')
         phone_number = request.data.get('phone_number')
         location = request.data.get('location')
 
         with transaction.atomic():
-            order = Order.objects.create(user=user, total=total, payment_method=payment_method)
+            order = Order.objects.create(user=user, total=total)
 
             # Retrieve the user's cart
             try:
@@ -113,7 +112,7 @@ class OrderConfirmView(APIView):
                 self.save_customer(user, address, phone_number, location)
                 self.send_admin_message_text()
                 send_text_message(phone_number,'Your order is being confirmed, Thank your for shopping with us')
-            except Customer.DoesNotExist:
+            except Exception:
                 return Response({"message": "Customer not found"}, status=status.HTTP_404_NOT_FOUND)
 
             # send gmail
@@ -148,6 +147,5 @@ class OrderConfirmView(APIView):
             admin_to_contact = admin_contact.phone_number
             # send email to admin email
             send_mail(admin_subject, admin_message, admin_from_email, [admin_to_email])
-
             # Send text message to admin phone number
-            send_text_message(admin_to_contact, 'New order received',)
+            send_text_message(str(admin_to_contact), 'New order received',)
