@@ -218,9 +218,15 @@ document.addEventListener('DOMContentLoaded', function () {
           callback: function (response) {
             // Handle the payment response
             if (response.status === 'success') {
+              console.log(response);
               // Make an AJAX request to save the order and delete cart items
               document.getElementById('preloader').classList.toggle('hide');
-              saveOrderAndDeleteCartItems(address, location, phone_number);
+              saveOrderAndDeleteCartItems(
+                address,
+                location,
+                phone_number,
+                response.transaction
+              );
             } else if (response.status !== 'success') {
               alert(response.status);
             }
@@ -232,7 +238,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // save order into the database
-  function saveOrderAndDeleteCartItems(address, location, phone_number) {
+  function saveOrderAndDeleteCartItems(
+    address,
+    location,
+    phone_number,
+    transaction
+  ) {
     var csrfToken = getCookie('csrftoken');
     total = document.getElementById('total').innerText;
     var requestData = {
@@ -240,6 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
       address: address,
       location: location,
       phone_number: phone_number,
+      transaction: transaction,
     };
     fetch('/api/order-confirm/', {
       method: 'POST',

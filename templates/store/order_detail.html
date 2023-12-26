@@ -5,9 +5,7 @@
     <p class="order__date">Order date: {{ order.created_at|date:"F d,Y:H:i" }}</p>
     <p class="order__number">Order number: <span>{{ order.order_id }}</span></p>
     <p class="order__status">Order Status:<span>Delivery State</span></p>
-    {% comment %}
     <p class="payment__type">Payment Type:{{ order.payment_method }}</p>
-    {% endcomment %}
     <hr />
     {% for orderitem in orderitems %}
     <div class="order__product">

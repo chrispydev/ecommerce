@@ -13,6 +13,7 @@ from rest_framework import status
 from django.core.mail import send_mail
 from django.conf import settings
 from store.text_message import send_text_message
+from store.paystack_request import get_payment_method
 
 class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
@@ -86,9 +87,17 @@ class OrderConfirmView(APIView):
         address = request.data.get('address')
         phone_number = request.data.get('phone_number')
         location = request.data.get('location')
+        reference = request.data.get('transaction')
+
+        try:
+            payment_method = get_payment_method(reference)
+            print(payment_method)
+        except Exception as e:
+            print(e)
+        # return Response({"message": "Thank you"})
 
         with transaction.atomic():
-            order = Order.objects.create(user=user, total=total)
+            order = Order.objects.create(user=user, total=total, payment_method=payment_method)
 
             # Retrieve the user's cart
             try:
