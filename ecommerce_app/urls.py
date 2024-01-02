@@ -10,7 +10,7 @@ urlpatterns = [
     path("", include("store.urls")),
     path("api/", include("store.api_urls")),
     path("account/", include("customer.urls")),
-    # path("__reload__/", include("django_browser_reload.urls")),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 # urlpatterns += i18n_patterns(
