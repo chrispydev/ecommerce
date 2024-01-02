@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from store.models import Product, Category, Order, OrderItem, Cart, CartItem
 from customer.models import Customer, AdminContact
-from store.serializers import ProductSerializer
+from store.serializers import ProductSerializer, ShippingRateSerializer
 from django.middleware.csrf import get_token
 from django.http import JsonResponse
 from faker import Faker
@@ -14,6 +14,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 from store.text_message import send_text_message
 from store.paystack_request import get_payment_method
+from store.models import ShippingRate
+from django.contrib.auth.models import User
 
 class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
@@ -83,18 +85,20 @@ class ReportView(APIView):
 class OrderConfirmView(APIView):
     def post(self, request):
         user = request.user
+        # user = User.objects.get(username=user)
         total = request.data.get('total')
         address = request.data.get('address')
         phone_number = request.data.get('phone_number')
+        region = request.data.get('region')
+        city = request.data.get('city')
+        nearest_location = request.data.get('nearest_location')
         location = request.data.get('location')
         reference = request.data.get('transaction')
 
         try:
             payment_method = get_payment_method(reference)
-            print(payment_method)
         except Exception as e:
             print(e)
-        # return Response({"message": "Thank you"})
 
         with transaction.atomic():
             order = Order.objects.create(user=user, total=total, payment_method=payment_method)
@@ -118,10 +122,11 @@ class OrderConfirmView(APIView):
 
             # Update the customer
             try:
-                self.save_customer(user, address, phone_number, location)
+                self.save_customer(user, address, phone_number, region, city, nearest_location)
                 self.send_admin_message_text()
                 send_text_message(phone_number,'Your order is being confirmed, Thank your for shopping with us')
-            except Exception:
+            except Exception as e:
+                print(e)
                 return Response({"message": "Customer not found"}, status=status.HTTP_404_NOT_FOUND)
 
             # send gmail
@@ -132,11 +137,14 @@ class OrderConfirmView(APIView):
 
         return Response({"message": "Thank you"})
 
-    def save_customer(self, user, address, phone_number, location):
-        customer = user.customer
+    def save_customer(self, user, address, phone_number, region, city, nearest_location):
+        customer = Customer.objects.get(user=user)
+        customer.user = user
         customer.address = address
         customer.phone_number = phone_number
-        customer.location = location
+        customer.region = region
+        customer.city = city
+        customer.nearest_location = nearest_location
         customer.save()
 
     def send_cemail(self, subject, message, from_email, to_email):
@@ -158,3 +166,10 @@ class OrderConfirmView(APIView):
             send_mail(admin_subject, admin_message, admin_from_email, [admin_to_email])
             # Send text message to admin phone number
             send_text_message(str(admin_to_contact), 'New order received',)
+
+class ShippingRateListAPIView(ListAPIView):
+    serializer_class = ShippingRateSerializer
+    queryset = ShippingRate.objects.all()
+
+    filter_fields = ('city',)
+    search_fields = ('region',)

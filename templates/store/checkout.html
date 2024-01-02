@@ -12,6 +12,7 @@
                 {{ u_form|crispy }}
             </fieldset>
         </form>
+        <button id="calculate__shipping" class="modify__cart -mt-3 mb-3 shadow">Calculate Shipping fee</button>
         <h1 class="checkout__header">Cart Summary</h1>
         <div class="cart__summary">
             {% for cart_item in cart_items %}
@@ -43,7 +44,7 @@
             <div>
                 <p>GHS{{subtotal}}</p>
                 <p>GHS{{tax}}</p>
-                <p>GHS{{shipping}}</p>
+                <p id="shipping__fees"></p>
             </div>
         </div>
         <hr />

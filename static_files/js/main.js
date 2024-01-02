@@ -1,3 +1,4 @@
+// make a button display and disappear when shipping is empty or filled
 document.addEventListener('DOMContentLoaded', function () {
   // get the DOM elements
   let toggleBtn = document.getElementById('toggleBtn');
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Payment
   const paymentButton = document.querySelector('#checkout__button');
+  const paymentShipping = document.querySelector('#calculate__shipping');
 
   toggleBtn.onclick = function () {
     document
@@ -194,15 +196,23 @@ document.addEventListener('DOMContentLoaded', function () {
       const email = document.querySelector('#id_email').value;
       const address = document.querySelector('#id_address').value;
       const phone_number = document.querySelector('#id_phone_number').value;
-      const location = document.querySelector('#id_location').value;
+      const region = document.querySelector('#id_region').value;
+      const city = document.querySelector('#id_city').value;
+      const nearest_location = document.querySelector(
+        '#id_nearest_location'
+      ).value;
       let pesewasAmount = total * 100; // Equivalent amount in Pesewas
       var pesewasAmount_ = pesewasAmount.toFixed(2); // Equivalent amount in Pesewas
       const helperText = document.querySelectorAll('.form-text');
+      const shippingfee = document.querySelector('#shipping__fees');
+      console.log(shippingfee.textContent.length);
 
       if (
         address.length === 0 ||
         phone_number.length === 0 ||
-        location.length === 0
+        region.length === 0 ||
+        city.length === 0 ||
+        shippingfee.textContent.length === 0
       ) {
         for (let index = 0; index < helperText.length; index++) {
           const element = helperText[index];
@@ -218,13 +228,14 @@ document.addEventListener('DOMContentLoaded', function () {
           callback: function (response) {
             // Handle the payment response
             if (response.status === 'success') {
-              console.log(response);
               // Make an AJAX request to save the order and delete cart items
               document.getElementById('preloader').classList.toggle('hide');
               saveOrderAndDeleteCartItems(
                 address,
-                location,
                 phone_number,
+                region,
+                city,
+                nearest_location,
                 response.transaction
               );
             } else if (response.status !== 'success') {
@@ -240,8 +251,10 @@ document.addEventListener('DOMContentLoaded', function () {
   // save order into the database
   function saveOrderAndDeleteCartItems(
     address,
-    location,
     phone_number,
+    region,
+    city,
+    nearest_location,
     transaction
   ) {
     var csrfToken = getCookie('csrftoken');
@@ -249,9 +262,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var requestData = {
       total: total,
       address: address,
-      location: location,
       phone_number: phone_number,
       transaction: transaction,
+      region: region,
+      city: city,
+      nearest_location: nearest_location,
     };
     fetch('/api/order-confirm/', {
       method: 'POST',
@@ -270,8 +285,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       })
       .catch((error) => {
-        console.error('Error saving order and deleting cart items:', error);
+        console.error('Error', error);
       });
+  }
+
+  // Calculate shipping fees
+  if (paymentShipping) {
+    paymentShipping.addEventListener('click', () => {
+      const region = document.querySelector('#id_region').value;
+      const city = document.querySelector('#id_city').value;
+      const shippingfee = document.querySelector('#shipping__fees');
+
+      fetch('/api/shipping-rate/')
+        .then((response) => response.json())
+        .then((data) => {
+          const filteredResult = data.filter(
+            (item) => item.region === region && item.city === city
+          );
+          if (filteredResult.length > 0) {
+            const shippingCost = filteredResult[0].shipping_cost;
+            // console.log(
+            //   `Shipping cost for ${region}, ${city}: ${shippingCost}`
+            // );
+            shippingfee.textContent = `GHC ${shippingCost}`;
+          } else {
+            // console.log(`No shipping cost found for ${region}, ${city}`);
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    });
   }
 
   // Function to get CSRF cookie value

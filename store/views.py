@@ -148,13 +148,12 @@ class CartListView(View, LoginRequiredMixin):
             price_array.append(subtotal.quantity * subtotal.price)
 
         tax = shippingTax.tax * sum(price_array)
-        total = sum(price_array) + tax + shippingTax.shipping
+        total = sum(price_array) + tax
 
 
         context = {
             'cart_items': cart_items,
             'subtotal': sum(price_array),
-            'shipping': shippingTax.shipping,
             'tax': tax,
             'total': total
         }
@@ -243,13 +242,12 @@ class CheckoutView(View):
             price_array.append(subtotal.quantity * subtotal.price)
 
         tax = shippingTax.tax * sum(price_array)
-        total = sum(price_array) + tax + shippingTax.shipping
+        total = sum(price_array) + tax
         decimal_places = 2
         round_ = round(total, decimal_places)
 
         context = {
             'subtotal': sum(price_array),
-            'shipping': shippingTax.shipping,
             'tax': tax,
             'total': round_,
             'c_form': c_form,
