@@ -5,8 +5,8 @@ DIRECTORY = 'reports'
 CATEGORIES = ['PS4', 'Iphone', 'Printer', 'Lego', 'Headphones', 'Smartwatch', 'TV', 'Laptop', 'Camera']
 CURRENCY = '€'
 BASE_URL = "http://www.amazon.de/"
-API_BASE_URL = 'http://127.0.0.1:8000/'
-API_BASE_URL = 'http://3.128.89.255:8000/'
+# API_BASE_URL = 'http://127.0.0.1:8000/'
+API_BASE_URL = 'http://18.188.196.238:8000/'
 
 def get_chrome_web_driver(options):
     return webdriver.Chrome(ChromeDriverManager().install(), chrome_options=options)
