@@ -1,0 +1,43 @@
+/* Styles for screens 320px or below */
+@media (max-width: 320px) {
+}
+
+/* Styles for screens 640px or above */
+@media (min-width: 640px) {
+}
+
+/* Styles for screens 768px or above */
+@media (min-width: 768px) {
+  .cart__mobile__wrapper {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+
+  .mobile__cart__width {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  .cart_mobile__width img {
+    max-height: 140px;
+  }
+
+  .cart__name h3 {
+    font-size: 1rem;
+  }
+
+  .cart__delete__mobile button {
+    font-size: 1rem;
+  }
+}
+
+/* CSS for screens with a minimum width of 768px to 991px */
+@media (min-width: 1024px) {
+  .cart__mobile__wrapper {
+    grid-template-columns: 3fr 1fr;
+    gap: 4rem;
+  }
+}
+
+/* CSS for screens with a minimum width of 992px to 1199px */
+@media (min-width: 1280px) {
+}

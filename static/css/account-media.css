@@ -1,0 +1,92 @@
+/* Styles for screens 320px or below */
+@media (max-width: 320px) {
+}
+
+/* Styles for screens 640px or above */
+@media (min-width: 640px) {
+}
+
+/* Styles for screens 768px or above */
+@media (min-width: 768px) {
+}
+
+/* CSS for screens with a minimum width of 768px to 991px */
+@media (min-width: 1024px) {
+  .account__wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-top: 5rem;
+  }
+
+  .accounthide__mobile {
+    display: block;
+  }
+
+  .navigation__menu {
+    max-width: 200px;
+  }
+
+  .navigation__menu .fa-chevron-right {
+    display: none;
+  }
+
+  .account__mobileHide {
+    display: none;
+  }
+
+  .account__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .account__email {
+    font-size: 0.9rem;
+    letter-spacing: -1px;
+    color: var(--primary-color);
+  }
+
+  .account__email span {
+    font-weight: 600;
+  }
+
+  .account__order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--primary-color-light);
+    background-color: #f1f1f1;
+    padding: 0.5rem 0.8rem;
+    border-radius: 0.8rem;
+  }
+
+  .accountoder__header {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .account__detail {
+    font-size: 0.8rem;
+  }
+
+  .overview__header {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    text-decoration: underline;
+  }
+
+  .overview__header:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+  }
+}
+
+/* CSS for screens with a minimum width of 992px to 1199px */
+@media (min-width: 1280px) {
+  .account__wrapper {
+    margin-left: 10rem;
+    margin-right: 10rem;
+  }
+}

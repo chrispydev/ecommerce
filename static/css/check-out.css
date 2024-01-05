@@ -1,0 +1,126 @@
+.check__out__wrapper {
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+}
+
+.check__out__wrapper > * {
+  margin-bottom: 1rem;
+  padding: 0 20px;
+}
+
+.term__conditions {
+  font-size: 0.75rem;
+}
+
+.term__conditions a {
+  color: var(--primary-color);
+}
+
+.summary__header {
+  background-color: var(--primary-background);
+  color: var(--primary-color);
+  font-weight: bold;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.2rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.payement__details > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.payement__details > div > *:nth-child(2) {
+  color: #000;
+  font-weight: bolder;
+}
+
+.heading__div {
+  background-color: var(--primary-background);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heading__div button {
+  background: none;
+  color: var(--primary-color);
+  border: 0;
+  outline: 0;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.shipping__title {
+  color: var(--primary-color);
+  font-weight: bold;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1.1rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.shipping__address > *:nth-child(2) {
+  color: var(--primary-color);
+}
+
+.shipping__address p {
+  font-size: 0.78rem;
+}
+
+.address__form {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 1.7rem;
+}
+
+.address__form label {
+  font-weight: bold;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.input__address {
+  border-radius: 0.4rem;
+  border: 1px solid var(--primary-color);
+  padding: 0.7rem 1rem;
+  width: 90%;
+}
+
+.input__address:focus {
+  outline-color: red;
+}
+
+/* input[type="text"] { */
+/*   border: 1px solid #ccc; */
+/*   transition: border-color 0.3s ease; */
+/* } */
+
+.checkout__button {
+  outline: 0;
+  padding: 0.4rem 1rem;
+}
+
+.checkout__button button {
+  background: var(--primary-color);
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.9rem;
+  border: 0;
+  outline: 0;
+  padding: 1rem 0.8rem;
+  width: 100%;
+  text-transform: uppercase;
+}

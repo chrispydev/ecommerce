@@ -1,0 +1,114 @@
+.cart__header {
+  font-size: 1.7rem;
+  font-weight: 400;
+  margin-left: 2rem;
+}
+
+.cart__mobile__wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.mobile__cart__width {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.cart_mobile__width img {
+  max-height: 180px;
+  object-fit: contain;
+}
+
+.cart_mobile__width {
+  background: white;
+  border: 1px solid var(--primary-color);
+  box-shadow: var(--primary-color);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 200px;
+}
+
+.cart__name {
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.cart__name h3 {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+.cart__quantity__mobile {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.cart__quantity__mobile button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 0.3rem;
+}
+
+.cart__delete__mobile button {
+  padding: 0.5rem 0.7rem;
+  font-size: 0.9rem;
+}
+
+.cart__mobile__button {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.cart__mobile__button > * {
+  margin-right: 0.4rem;
+  margin-left: 0.4rem;
+}
+
+.summary__wrapper {
+  background-color: #f1f1f2;
+  padding: 0.7rem 1rem;
+}
+
+.summary__wrapper h1 {
+  font-size: 1.7rem;
+  font-weight: 400;
+  margin-left: 1rem;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+}
+
+.checkout__button {
+  background-color: #fff;
+  border: none;
+  outline: 1px solid var(--primary-color);
+  border-radius: 0.4rem;
+  text-transform: capitalize;
+  color: var(--primary-color);
+  transition: background-color all 0.4s;
+  font-weight: 500;
+  width: 100%;
+}
+
+.checkout__button:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}

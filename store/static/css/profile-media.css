@@ -1,0 +1,18 @@
+/* Styles for screens 768px or above */
+@media (min-width: 768px) {
+}
+
+/* CSS for screens with a minimum width of 768px to 991px */
+@media (min-width: 1024px) {
+  .navigation__menu {
+    display: block;
+  }
+
+  .hide_mobile {
+    display: none;
+  }
+}
+
+/* CSS for screens with a minimum width of 992px to 1199px */
+@media (min-width: 1280px) {
+}
