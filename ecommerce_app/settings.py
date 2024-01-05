@@ -16,8 +16,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-0!q0nhqe3j3wy4axafob)ik5)^7@yg-^g(qv$8-r)5yxa0d=h%"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,7 +87,7 @@ TEMPLATES = [
         },
     },
 ]
-
+img/favicon
 WSGI_APPLICATION = "ecommerce_app.wsgi.application"
 
 
