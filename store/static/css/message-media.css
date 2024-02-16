@@ -1,0 +1,5 @@
+@media (max-width: 375px) {
+  .inbox__header {
+    font-size: 1.7rem;
+  }
+}

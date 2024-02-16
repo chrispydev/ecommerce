@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="cart__wrapper">
+    {% if cart_items %}
+    <h1 class="cart__header">Your Cart</h1>
+    <section class="cart__mobile__wrapper">
+        <section class="mobile__cart">
+            {% for cart_item in cart_items %}
+            <hr />
+            <div class="mobile__cart__width">
+                <!-- cart product -->
+                <div class="cart_mobile__width">
+                    <img src="{{ cart_item.product.product_image.url }}" />
+                    <h3 class="price__tag">
+                        GHS{{cart_item.product.price}}
+                    </h3>
+                </div>
+                <!-- Price -->
+                <div>
+                    <div class="cart__name">
+                        <h3>
+                            {{ cart_item.product.name|truncatechars:100 }}
+                        </h3>
+                    </div>
+                    <!-- Total -->
+                    <div class="cart__name">
+                        <h3>Price {{cart_item.quantity}}x GHS{{cart_item.product.price}}</h3>
+                        {% if cart_item.item_size %}
+                        <h3>Size: {{cart_item.item_size}}</h3>
+                        {% endif %}
+                        <h3>SubTotal: GHS{{cart_item.subtotal}}</h3>
+                    </div>
+
+                    <div class="cart__quantity__mobile">
+                        <div class="cart__delete__mobile">
+                            <form action="{% url 'cart_update' cart_item.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="action" value="remove" class="shadow">
+                                    Delete
+                                    <i class="fas fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="cart__mobile__button">
+                            <form action="{% url 'cart_update' cart_item.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="action" value="decrease" class="shadow">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </form>
+                            {{cart_item.quantity}}
+                            <form action="{% url 'cart_update' cart_item.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" name="action" value="increase" class="shadow">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            {% endfor %}
+        </section>
+        <article class="summary__wrapper">
+            <h1 class="">Summary</h1>
+            <hr />
+            <div class="summary">
+                <div>
+                    <p>Subtotal</p>
+                    <p>Taxes</p>
+                </div>
+                <div>
+                    <p>GHC{{subtotal}}</p>
+                    <p>GHC{{tax}}</p>
+                </div>
+            </div>
+            <hr />
+            <div class="total">
+                <p>Total</p>
+                <p>GHC{{total}}</p>
+            </div>
+            <hr />
+            <a href="{% url 'checkout' %}">
+                <button class="checkout__button shadow">Go to checkout</button>
+            </a>
+        </article>
+    </section>
+    {% else %}
+    <h1>Your cart is empty </h1>
+    <a style="color: var(--primary-color);" href="{% url 'product_home' %}">Start Shopping</a>
+    {% endif %}
+</section>
+{% endblock %}

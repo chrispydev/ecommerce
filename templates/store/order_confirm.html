@@ -1,0 +1,56 @@
+{% extends 'base.html' %} {% block content %}
+
+<section class="orderdetail__wrapper">
+    <a class="back__button" href="{% url 'account' %}">← Account</a>
+    <p class="order__date">Order date: {{ order_confirm.created_at|date:"F d,Y:H:i" }}</p>
+    <p class="order__number">Order number: <span>{{ order_confirm.order_id }}</span></p>
+    <p class="order__status">Order Status: <span>Delivery State</span></p>
+    <p class="payment__type">Payment Type: {{ order_confirm.payment_method }}</p>
+    <hr />
+    {% for orderitem in order_items %}
+    <div class="order__product">
+        <div class="cart__item__div">
+            <div class="mb-4">
+                <img src="{{ orderitem.product.product_image.url}}" alt="{{orderitem.product.name}}">
+            </div>
+            <div>
+                <h4>{{ orderitem.product.name|truncatechars:50 }}</h4>
+                <p>QTY: {{ orderitem.quantity }}</p>
+                {% if orderitem.size %}
+                <p>Size: {{ orderitem.size }}</p>
+                {% endif %}
+                <p>Sub Total: GHS{{ orderitem.subtotal }}</p>
+            </div>
+        </div>
+        <hr />
+    </div>
+    {% endfor %}
+    <div class="other__details">
+        <h1>Delivery</h1>
+        <div class="other__contacts">
+            <div>
+                <h5>Shipping Address</h5>
+                <p>{{order_confirm.user.customer.address}}</p>
+            </div>
+            <div>
+                <h5>Contact</h5>
+                <p>{{order_confirm.user.customer.phone_number}}</p>
+            </div>
+            <div>
+                <h5>Payment Method</h5>
+                <p>{{ order_confirm.payment_method }}</p>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="subtotal__div">
+        <div>
+            <h5>Order Summary</h5>
+            <p class="subtotal__label">Total</p>
+        </div>
+        <div class="subtotal__money">
+            GHS{{order_confirm.total}}
+        </div>
+    </div>
+</section>
+{% endblock %}

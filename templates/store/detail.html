@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="detail">
+    {% comment %}
+    <img class="" src="{{product.product_image}}" alt="" srcset="">
+    {% endcomment %}
+    <img class="shadow" src="{{product.product_image.url}}" alt="" srcset="">
+
+    <div class="product__detail">
+        <h4>{{product.name}}</h4>
+        {% comment %}
+        <p>{{product.description}}</p>
+        {% endcomment %}
+        <div class="description">
+            {{ product.description|safe }}
+        </div>
+        <div class="product__sizes">
+            {% if product.has_sizes %}
+            <p>VARIATION AVAILABLE</p>
+            {% for size in product.size.all %}
+            <button data-product-size={{size.display_text}} class="size__btn">
+                {{ size.display_text }}
+            </button>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <h5>GHS{{product.price}}</h5>
+        {% if product.is_in_stock %}
+
+        <button data-product-id="{{product.id}}" class="shadow add-to-cart-btn cart__btn" id="detail__add"
+            type="button">ADD TO
+            CART</button>
+        {% else %}
+        <button class="shadow add-to-cart-btd cart__btn" type="button">Out of Stock</button>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

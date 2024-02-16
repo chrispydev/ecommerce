@@ -1,0 +1,83 @@
+<section class="cart__section">
+    <article>
+        <div class="cart__heading">
+            <h5>Item</h5>
+            <h5>Quantity</h5>
+            <h5>Price</h5>
+            <h5>Total</h5>
+        </div>
+        <hr />
+        {% for cart_item in cart_items %}
+        <div>
+            <div class="cart__item">
+                <!-- items -->
+                <div class="cartdetail__image">
+                    <img class="cart__image" src="{{ cart_item.product.product_image }}"
+                        alt="{{ cart_item.product.description }}">
+                    <p class="cart__title">{{ cart_item.product.name|truncatechars:40 }}</p>
+                </div>
+                <!-- Quantity -->
+                <div class="cart__quantity">
+                    <div class="cart__buttons">
+                        <form action="{% url 'cart_update' cart_item.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="action" value="decrease" class="shadow">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </form>
+                        {{cart_item.quantity}}
+                        <form action="{% url 'cart_update' cart_item.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="action" value="increase" class="shadow">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </form>
+
+                    </div>
+                    <div class="cart__delete_">
+                        <form action="{% url 'cart_update' cart_item.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="action" value="remove" class="shadow">
+                                Delete
+                                <i class="fas fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <!-- Price -->
+                <div class="cart__color">
+                    <p>GHS{{cart_item.product.price}}</p>
+                </div>
+                <!-- Total -->
+                <div class="cart__color">
+                    <p>GHS{{cart_item.subtotal}}</p>
+                </div>
+            </div>
+            <hr />
+        </div>
+        {% endfor %}
+    </article>
+    <article>
+        <h1 class="cart__header">Summary</h1>
+        <hr />
+        <div class="summary">
+            <div>
+                <p>Subtotal</p>
+                <p>Shipping</p>
+                <p>Taxes</p>
+            </div>
+            <div>
+                <p>GHS{{subtotal}}</p>
+                <p>GHS{{shipping}}</p>
+                <p>GHS{{tax}}</p>
+            </div>
+        </div>
+        <hr />
+        <div class="total">
+            <p>Total</p>
+            <p>GHS{{total}}</p>
+        </div>
+        <hr />
+        <button class="checkout__button">Go to checkout</button>
+    </article>
+</section>

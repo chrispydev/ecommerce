@@ -1,0 +1,80 @@
+.detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 1rem;
+}
+
+.detail img {
+  max-width: 100%;
+  max-height: 200px;
+  width: 100%;
+  object-fit: contain;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.product__detail > * {
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.product__detail h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.product__detail p {
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+}
+
+.product__detail .description {
+  font-size: 0.8rem;
+  line-height: 1.5rem;
+  margin-left: 0.5rem;
+}
+
+.product__sizes p {
+  font-weight: bold;
+}
+
+.active__btn {
+  background-color: var(--primary-color);
+  color: #fff !important;
+}
+
+.product__sizes button:hover {
+  background-color: var(--primary-color);
+  color: #fff !important;
+}
+
+.product__sizes button {
+  border: 1px solid var(--primary-color);
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.product__detail h5 {
+  font-weight: 900;
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  letter-spacing: -1px;
+}
+
+.product__detail .cart__btn {
+  background-color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  color: #fff;
+  padding: 1rem 1rem;
+  width: 100%;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.product__detail .cart__btn:hover {
+  background-color: #fff;
+  color: var(--primary-color);
+}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %} {% block content %}
+<div class="login__form">
+  <form action="" method="post">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4 legend__heading">Login</legend>
+      {{ form }}
+    </fieldset>
+    <div class="form-group submit__div">
+      <button class="form__submit" type="submit">Log In</button>
+      <small class="text-muted ml-2">
+        <a class="signup" href="{% url 'password_reset' %}">Forget password?</a>
+      </small>
+    </div>
+  </form>
+  <div class="border-top pt-3">
+    <small class="text-muted">Need an account?
+      <a id="signup" class="ml-2 " href="{% url 'register' %}">Sign Up Now</a></small>
+  </div>
+</div>
+{% endblock %}

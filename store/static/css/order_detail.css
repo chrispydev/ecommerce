@@ -1,0 +1,132 @@
+.orderdetail__wrapper {
+  margin: 4rem 1rem 2rem 1rem;
+}
+
+.back__button {
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--primary-color);
+  text-decoration: underline;
+  transition: all 300ms ease-in-out;
+}
+
+.back__button:hover {
+  margin-left: 1rem;
+  color: var(--primary-color);
+}
+
+.order__date {
+  font-size: 0.8rem;
+}
+
+.order__number {
+  display: flex;
+  font-size: 0.7rem;
+}
+
+.order__number span {
+  color: var(--primary-color);
+}
+
+.order__status {
+  font-size: 0.8rem;
+}
+
+.payment__type {
+  font-size: 0.8rem;
+}
+
+.order__product {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+/* .order__product::after {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  width: 100%;
+  height: 1px;
+  background-color: #999;
+} */
+
+.order__product::before {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  width: 100%;
+  height: 1px;
+  background-color: #c2c2c2e8;
+}
+
+.order__product img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border: 1px solid #999;
+  background-color: #f2f2f2;
+  border-radius: 0.7rem;
+  padding: 1rem;
+  margin-right: 0.8rem;
+}
+
+.orderproduct__name {
+  font-size: 0.8rem;
+}
+
+.orderproduct__price {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 0.75rem;
+}
+
+.order__initialprice {
+  color: #999;
+}
+
+.other__details {
+  margin-top: 2rem;
+}
+
+.other__details h1 {
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+}
+
+.other__contacts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.other__contacts h5 {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.other__contacts p {
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+.subtotal__div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subtotal__label {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.subtotal__money {
+  text-transform: uppercase;
+  font-weight: 500;
+}

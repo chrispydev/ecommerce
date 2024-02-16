@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="product__wrapper">
+    <article class="categories shadow">
+        <h2>Categories</h2>
+        {% for main_category in main_categories %}
+        <button class="category_button">{{main_category.name}} <i class="fas fa-circle-chevron-down"></i></button>
+        <div class="sub_categories">
+            {% for categories in main_category.sub_categories.all %}
+            <a href="{% url 'category_product' categories.name %}">{{categories.name}}</a>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </article>
+    <article>
+        <article class="categories__mobile shadow">
+            <button id="cate_hide" class="categories__header">
+                <h2>Categories</h2>
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+            <div id="cate_hide_" class="category__name">
+                {% for main_category in main_categories %}
+                <button class="category_button">{{main_category.name}} <i
+                        class="fas fa-circle-chevron-down"></i></button>
+                <div class="sub_categories">
+                    {% for categories in main_category.sub_categories.all %}
+                    <a href="{% url 'category_product' categories.name %}">{{categories.name}}</a>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </article>
+
+        <article class="products">
+            {% for product in products%}
+            <div class="product shadow">
+                {% comment %}
+                <img src="{{product.product_image}}" />
+                {% endcomment %}
+                <img src="{{product.product_image.url}}" />
+                {% if product.featured %}
+                <h3 class="featured">
+                    Featured
+                </h3>
+                {% else %}
+                <p></p>
+                {% endif %}
+                {% if product.is_in_stock %}
+                <h3 class="price__tag">
+                    GHS{{product.price}}
+                </h3>
+                {% else %}
+                <h3 class="stock__out">
+                    Out of Stock
+                </h3>
+                {% endif %}
+                <div class="product__name">
+                    <h3>
+                        {{product.name|truncatechars:50}}
+                    </h3>
+                </div>
+                <div class="product__action">
+                    {% if product.is_in_stock %}
+                    {% if product.has_sizes %}
+                    <a href="{% url 'product_detail' product.id %}">Add to Cart
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                    {% else %}
+                    <button data-product-size="" data-product-id="{{ product.id }}" type="button"
+                        class="add-to-cart-btn">Add to Cart <i class="fa-solid fa-cart-shopping"></i></button>
+                    {% endif %}
+                    {% else %}
+                    <p>Out of Stock</p>
+                    {% endif %}
+                    <a href="{% url 'product_detail' product.id %}">Go to Details</a>
+
+                </div>
+            </div>
+            {% endfor %}
+        </article>
+        <article style="margin-top: 2rem;margin-left: 1.5rem;">
+            {% if is_paginated %}
+            {% if page_obj.has_previous %}
+            <a class="btn btn-outline-secondary mb-4" href="?page=1">First</a>
+            <a class="btn btn-outline-secondary mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a class="btn btn-secondary mb-4" href="?page={{ num }}">{{ num }}</a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
+                class="btn btn-outline-secondary mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <a class="btn btn-outline-secondary mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                <a class="btn btn-outline-secondary mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% endif %}
+
+                {% endif %}
+        </article>
+    </article>
+</section>
+{% endblock %}

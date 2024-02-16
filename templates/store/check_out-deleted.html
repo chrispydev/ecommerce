@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="check__out__wrapper">
+  <div class="term__conditions">
+    <p>By proceeding, you are automatically accepting the</p><a href="">Terms & Conditions</a>
+  </div>
+  <p class="summary__header">Order Summary</p>
+  <!-- payment details -->
+  <div class="payement__details">
+    <div>
+      <p>Item's total(1)</p>
+      <p>GHS 100.00</p>
+    </div>
+    <div>
+      <p>Delivery fees</p>
+      <p>GHS 30.00</p>
+    </div>
+    <hr />
+    <div>
+      <p>Total</p>
+      <p>GHS 111.48</p>
+    </div>
+    <hr />
+  </div>
+  <!-- shipping address -->
+  <div class='heading__div'>
+    <p class="shipping__title">Customer Address</p>
+    <button class=''>Change</button>
+  </div>
+  <div class="shipping__address">
+    <p>Christian Owusu</p>
+    <p>Gm-206, Oyarifa Ghana Flag|Greater Accra-Oyarifa|+233 055
+  </div>
+  <!-- Customer Address -->
+  <form action="">
+    <div class='address__form'>
+      <label>Address:</label>
+      <input type='text' placeholder='address' class='input__address' />
+    </div>
+    <div class='address__form'>
+      <label>Phone number:</label>
+      <input type='text' placeholder='phone number' class='input__address' />
+    </div>
+    <div class='address__form'>
+      <label>Location:</label>
+      <input type='text' placeholder='location' class='input__address' />
+    </div>
+  </form>
+  <div class='checkout__button shadow'>
+    <button>Confirm Order</button>
+  </div>
+</section>
+{% endblock content %}

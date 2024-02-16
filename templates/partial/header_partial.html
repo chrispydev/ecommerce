@@ -1,0 +1,103 @@
+{% load static %}
+<div class="static">
+  <nav class="nav__bar shadow">
+    <!-- logo -->
+    <div class="logo">
+      <a href="{% url 'product_home' %}">
+        <img src="{% static 'img/logo.png' %}" alt="logo" />
+      </a>
+    </div>
+    <!-- search input -->
+    <div class="search__product">
+      <input id="search" type="search" placeholder="Search for product..." autocomplete="off" />
+      <button id="search__product" class="search__button">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+      <!-- result product search -->
+      <div id="match-list" class="match__list shadow">
+
+      </div>
+    </div>
+    <!-- user -->
+    <div class="user__detail">
+      {% if user.is_authenticated %}
+      <button id="userdetail__dropdown" class="auth__div">
+        <i class="fa-solid fa-user"></i>
+        <p class="auth__name">{{ user.username }}</p>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+      {% else %}
+      <div class="auth__div">
+        <a style="color: var(--primary-color); font-size: 1.4rem;" href="{% url 'login' %}" class="auth__name">Login</a>
+      </div>
+      {% endif %}
+    </div>
+    <!-- add to cart -->
+    <div class="cart__section__header">
+      <a class="cart__div" href="{% url 'cart_list' %}">
+        <button class="cart__button cart cart__div">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span id="cart__info">0</span>
+        </button>
+      </a>
+      <button id="toggleBtn" class="cart__button menu__bars cart__div">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+    </div>
+  </nav>
+</div>
+<!-- drop down menu -->
+<div id="dropdown__menu" class="shadow down__menu">
+  <div class="menuauth__lint">
+    <i class="fa-solid fa-user"></i> <a href="{% url 'account' %}">Account</a>
+  </div>
+  <div class="menuauth__lint">
+    <i class="fa-solid fa-box"></i><a href="{% url 'orders' %}">Orders</a>
+  </div>
+  <div class="menuauth__lint">
+    {% if user.is_authenticated %}
+    <i class="fa-regular fa-circle-dot"></i> <a class="logout__button" href="{% url 'logout' %}">Logout</a>
+    {% else %}
+    <i class="fa-regular fa-circle-dot"></i> <a class="logout__button" href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </div>
+</div>
+<!-- mobile menu -->
+<div id="navopen__toggle" class="mobile__sidemenu">
+  <!-- search input -->
+  <div class="search__product__mobile">
+    <input id="search-mobile" type="search" placeholder="Search for product..." autocomplete="off" />
+    <button class="search__button" id="search__product__mobile">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+    <!-- result product search -->
+    <div id="match-list-2" class="match__list">
+    </div>
+  </div>
+  <div class="menuauth_detail">
+    {% if user.is_authenticated %}
+    <h3 class="">Welcome,{{ user.username }}</h3>
+    {% else %}
+    <h3>Welcome Guest User</h3>
+    {% endif %}
+  </div>
+  <hr />
+  <div class="menu__auth -mt-4">
+    <div class="menuauth__lint">
+      <i class="fa-solid fa-user"></i> <a href="{% url 'account' %}">Account</a>
+    </div>
+    <div class="menuauth__lint">
+      <i class="fa-solid fa-box"></i><a href="{% url 'orders' %}">Orders</a>
+    </div>
+    <div class="menuauth__lint">
+      <i class="fa-solid fa-envelope"></i><a href="{% url 'inbox' %}">Inbox</a>
+    </div>
+    <div class="menuauth__lint">
+      {% if user.is_authenticated %}
+      <i class="fa-regular fa-circle-dot"></i> <a class="logout__button" href="{% url 'logout' %}">Logout</a>
+      {% else %}
+      <i class="fa-regular fa-circle-dot"></i> <a class="logout__button" href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </div>
+  </div>
+</div>

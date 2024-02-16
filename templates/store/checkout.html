@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<section class="checkout__wrapper">
+    <article>
+        <h1 class="checkout__header">Address</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ c_form|crispy }}
+                {{ u_form|crispy }}
+            </fieldset>
+        </form>
+        {% comment %}
+        <button id="calculate__shipping" class="modify__cart -mt-3 mb-3 shadow">Calculate Shipping fee</button>
+        {% endcomment %}
+        <h1 class="checkout__header">Cart Summary</h1>
+        <div class="cart__summary">
+            {% for cart_item in cart_items %}
+            <div class="cart__item__div">
+                <div class="mb-4">
+                    <img src="{{ cart_item.product.product_image.url}}" alt="{{cart_item.product.name}}">
+                </div>
+                <div>
+                    <h4>{{ cart_item.product.name|truncatechars:50 }}</h4>
+                    {% if cart_item.item_size %}
+                    <p>Size: {{cart_item.item_size}}</p>
+                    {% endif %}
+                    <p>QTY: {{ cart_item.quantity }}</p>
+                </div>
+            </div>
+            <hr />
+            {% endfor %}
+        </div>
+        <a href="{% url 'cart_list' %}">
+            <button class="modify__cart shadow">Modify Cart</button>
+        </a>
+    </article>
+    <article class="summary__wrapper">
+        <h1 class="">Summary</h1>
+        <hr />
+        <div class="summary">
+            <div>
+                <p>Subtotal</p>
+                <p>Taxes</p>
+                {% comment %}
+                <p>Shipping</p>
+                {% endcomment %}
+            </div>
+            <div>
+                <p id="subtotal">GHC{{subtotal}}</p>
+                <p id="tax">GHC{{tax}}</p>
+                <p id="shipping__fees"></p>
+            </div>
+        </div>
+        <hr />
+        <div class="total">
+            <p>Total</p>
+            <p>GHC<span id="total">{{total}}</span></p>
+        </div>
+        <hr />
+        <button id="checkout__button" class="checkout__button shadow">Proceed to
+            Payment</button>
+    </article>
+</section>
+{% endblock %}
