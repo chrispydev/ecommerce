@@ -34,12 +34,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_browser_reload",
+    # "django_browser_reload",
     # django apps
     "store",
     "customer",
     # 3rd party apps
-    "fontawesomefree",
+    # "fontawesomefree",
     "crispy_forms",
     "crispy_bootstrap4",
     "rest_framework",
@@ -65,7 +65,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    # "django_browser_reload.middleware.BrowserReloadMiddleware",
     # "django.middleware.locale.LocaleMiddleware"
 ]
 
@@ -164,8 +164,8 @@ STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
 # MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files')]
 # if not DEBUG:
-    # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_files')]
     # STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
@@ -194,9 +194,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # ckeditor
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = 'pillow'
-
-# for aws
-AWS_QUERYSTRING_AUTH = False
 
 CKEDITOR_CONFIGS = {
     'default': {
