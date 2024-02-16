@@ -195,6 +195,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = 'pillow'
 
+# for aws
+AWS_QUERYSTRING_AUTH = False
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
