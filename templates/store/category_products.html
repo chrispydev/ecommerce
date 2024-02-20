@@ -5,7 +5,7 @@
     <article class="categories shadow">
         <h2>Categories</h2>
         {% for main_category in main_categories %}
-        <button class="category_button">{{main_category.name}} <i class="fas fa-arror"></i> </button>
+        <button class="category_button">{{main_category.name}} <i class="fas fa-circle-chevron-down"></i></button>
         <div class="sub_categories">
             {% for categories in main_category.sub_categories.all %}
             <a href="{% url 'category_product' categories.name %}">{{categories.name}}</a>
@@ -20,9 +20,14 @@
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
             <div id="cate_hide_" class="category__name">
-                {% for category in categories %}
-                <a href="{% url 'category_product' category.name %}">{{category.name}}</a>
+            {% for main_category in main_categories %}
+            <button class="category_button">{{main_category.name}} <i class="fas fa-circle-chevron-down"></i></button>
+            <div class="sub_categories">
+                {% for categories in main_category.sub_categories.all %}
+                <a href="{% url 'category_product' categories.name %}">{{categories.name}}</a>
                 {% endfor %}
+            </div>
+            {% endfor %}
             </div>
         </article>
         <h1 style="font-size: 1rem; color: var(--primary-color);font-weight: 300; margin-left: 1rem;">{{product_total}}
@@ -35,7 +40,7 @@
                 {% endcomment %}
                 <img src="{{category_product.product_image.url}}" />
                 <h3 class="price__tag">
-                    GHS{{category_product.price}}
+                    GH₵{{category_product.price}}
                 </h3>
                 <div class="product__name">
                     <h3>

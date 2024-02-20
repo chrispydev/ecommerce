@@ -16,7 +16,7 @@
             <div>
                 <h4>{{ orderitem.product.name|truncatechars:50 }}</h4>
                 <p>QTY: {{ orderitem.quantity }}</p>
-                <p>Sub Total: GHS{{ orderitem.subtotal }}</p>
+                <p>Sub Total: GH₵{{ orderitem.subtotal }}</p>
             </div>
         </div>
         <hr />
@@ -25,7 +25,7 @@
         <p class="orderproduct__name">{{ orderitem.product.name|truncatechars:50 }}</p>
         <div class="orderproduct__price">
             <p class="order__initialprice">{{ orderitem.quantity }}x {{ orderitem.product.price }}</p>
-            <p>Total Price:GHS{{orderitem.subtotal}}</p>
+            <p>Total Price:GH₵{{orderitem.subtotal}}</p>
         </div>
         {% endcomment %}
     </div>
@@ -54,7 +54,7 @@
             <p class="subtotal__label">Total</p>
         </div>
         <div class="subtotal__money">
-            GHS{{order.total}}
+            GH₵{{order.total}}
         </div>
     </div>
 </section>

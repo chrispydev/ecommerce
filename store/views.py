@@ -12,6 +12,8 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 import os
 from django.http import FileResponse, HttpResponse
+from ecommerce_app.settings import DEBUG
+from decimal import Decimal
 
 class ProductListView(ListView):
     model = Product
@@ -27,6 +29,11 @@ class ProductListView(ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['main_categories'] = MainCategory.objects.all()
+
+        for product in context['products']:
+            if product.has_discount:
+                product.discounted_price = product.price - product.discount
+                # product.save()
         return context
 
 
@@ -60,7 +67,10 @@ class CategoryProductListView(View):
 
 class SearchViewList(View):
     def get(self, request, search):
-        api_url = f"http://localhost:8000/api/?search={search}"
+        if DEBUG == True:
+            api_url = f"http://localhost:8000/api/?search={search}"
+        else:
+            api_url = f"http://remgeeshop.com/api/?search={search}"
 
         response = requests.get(api_url)
 
@@ -68,11 +78,14 @@ class SearchViewList(View):
 
         categories = Category.objects.all()
 
-        for product in data:
-            product_image = product.get('product_image')
-            if product_image:
-                modified_product_image = product_image.replace("http://localhost:8000/https%3A/", "https://")
-                product['product_image'] = modified_product_image
+        # for product in data:
+        #     product_image = product.get('product_image')
+        #     if product_image:
+        #         if DEBUG:
+        #             modified_product_image = product_image.replace("http://remgeeshop.com/https%3A/", "https://")
+        #         else:
+        #             modified_product_image = product_image.replace("http://localhost:8000/https%3A/", "https://")
+        #         product['product_image'] = modified_product_image
 
         context = {
             'category_products': data,
@@ -80,7 +93,7 @@ class SearchViewList(View):
             'page': 'product-search',
             'product_total': len(data)
         }
-        return render(request, 'store/category_products.html', context)
+        return render(request, 'store/category_search_products.html', context)
 
 class AddToCartView(View, LoginRequiredMixin):
     def post(self, request, *args, **kwargs):

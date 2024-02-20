@@ -37,11 +37,14 @@ class Product(models.Model):
     description = RichTextField(config_name='default')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default='iphone', null=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
+    discounted_price = models.DecimalField(max_digits=8, decimal_places=2, default=0.0, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     is_in_stock = models.BooleanField(default=True)
     has_sizes = models.BooleanField(default=False)
     stock = models.PositiveIntegerField(default=1)
     featured = models.BooleanField(default=False)
+    has_discount = models.BooleanField(default=False)
+    discount = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)
 
 
     def __str__(self):

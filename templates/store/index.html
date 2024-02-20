@@ -35,24 +35,51 @@
         <article class="products">
             {% for product in products%}
             <div class="product shadow">
-                {% comment %}
-                <img src="{{product.product_image}}" />
-                {% endcomment %}
                 <img src="{{product.product_image.url}}" />
-                {% if product.featured %}
+                {% if product.is_in_stock and product.has_discount and product.featured %}
+                <h3 class="price__discount">
+                    Discount GH₵{{product.discount}}
+                </h3>
+                <h3 class="featured__discount">
+                    Featured
+                </h3>
+                <div class="discount__div">
+                    <h3 class="discounted__price">
+                        GH₵{{product.discounted_price}}
+                    </h3>
+                    <h3 class="product__price">
+                        GH₵{{product.price}}
+                    </h3>
+                </div>
+                {% elif product.is_in_stock and product.has_discount %}
+                <h3 class="price__discount">
+                    Discount GH₵{{product.discount}}
+                </h3>
+                <div class="discount__div">
+                    <h3 class="discounted__price">
+                        GH₵{{product.discounted_price}}
+                    </h3>
+                    <h3 class="product__price">
+                        GH₵{{product.price}}
+                    </h3>
+                </div>
+                {% elif product.is_in_stock and product.featured %}
                 <h3 class="featured">
                     Featured
                 </h3>
-                {% else %}
-                <p></p>
-                {% endif %}
-                {% if product.is_in_stock %}
                 <h3 class="price__tag">
-                    GHS{{product.price}}
+                    GH₵{{product.price}}
+                </h3>
+                {% elif product.is_in_stock and not product.has_discount %}
+                <h3 class="price__tag">
+                    GH₵{{product.price}}
                 </h3>
                 {% else %}
                 <h3 class="stock__out">
                     Out of Stock
+                </h3>
+                <h3 class="price__tag">
+                    GH₵{{product.price}}
                 </h3>
                 {% endif %}
                 <div class="product__name">
