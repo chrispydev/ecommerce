@@ -13,7 +13,7 @@
                 <div class="cart_mobile__width">
                     <img src="{{ cart_item.product.product_image.url }}" />
                     <h3 class="price__tag">
-                        GH₵{{cart_item.product.price}}
+                        GH₵{{cart_item.price}}
                     </h3>
                 </div>
                 <!-- Price -->
@@ -25,7 +25,7 @@
                     </div>
                     <!-- Total -->
                     <div class="cart__name">
-                        <h3>Price {{cart_item.quantity}}x GH₵{{cart_item.product.price}}</h3>
+                        <h3>Price {{cart_item.quantity}}x GH₵{{cart_item.price}}</h3>
                         {% if cart_item.item_size %}
                         <h3>Size: {{cart_item.item_size}}</h3>
                         {% endif %}

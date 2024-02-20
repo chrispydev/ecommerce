@@ -114,8 +114,11 @@ class AddToCartView(View, LoginRequiredMixin):
                     cart_item.quantity = 1
                 else:
                     cart_item.quantity += 1
-
-                cart_item.price = cart_item.quantity * product.price
+                if product.has_discount:
+                    price = product.price - product.discount
+                    cart_item.price = cart_item.quantity * price
+                else:
+                    cart_item.price = cart_item.quantity * product.price
                 cart_item.save()
             else:
                 cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
@@ -124,7 +127,11 @@ class AddToCartView(View, LoginRequiredMixin):
                 else:
                     cart_item.quantity += 1
 
-                cart_item.price = cart_item.quantity * product.price
+                if product.has_discount:
+                    price = product.price - product.discount
+                    cart_item.price = cart_item.quantity * price
+                else:
+                    cart_item.price = cart_item.quantity * product.price
                 cart_item.save()
 
         except Cart.DoesNotExist:
