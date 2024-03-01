@@ -53,8 +53,8 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         super().save()
 
-        # img = Image.open(self.product_image.path)
-        img = Image.open(requests.get(self.product_image.url, stream=True).raw)
+        img = Image.open(self.product_image.path)
+        # img = Image.open(requests.get(self.product_image.url, stream=True).raw)
 
 
         if img.height > 800 or img.width > 800:

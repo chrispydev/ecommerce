@@ -1,0 +1,231 @@
+<style>
+    @media (min-width: 640px) {
+  .orderdetail__wrapper {
+    margin: 4rem 2rem 2rem 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .orderdetail__wrapper {
+    margin: 4rem 6rem 2rem 6rem;
+  }
+
+  .orderproduct__price {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: 0.9rem;
+  }
+
+  .order__date {
+    font-size: 0.9rem;
+  }
+
+  .order__number {
+    display: flex;
+    font-size: 0.9rem;
+  }
+
+  .order__status {
+    font-size: 0.9rem;
+  }
+
+  .payment__type {
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .orderdetail__wrapper {
+    margin: 4rem 12rem 2rem 12rem;
+  }
+}
+
+.orderdetail__wrapper {
+  margin: 4rem 1rem 2rem 1rem;
+}
+
+.back__button {
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--primary-color);
+  text-decoration: underline;
+  transition: all 300ms ease-in-out;
+}
+
+.back__button:hover {
+  margin-left: 1rem;
+  color: var(--primary-color);
+}
+
+.order__date {
+  font-size: 0.8rem;
+}
+
+.order__number {
+  display: flex;
+  font-size: 0.7rem;
+}
+
+.order__number span {
+  color: var(--primary-color);
+}
+
+.order__status {
+  font-size: 0.8rem;
+}
+
+.payment__type {
+  font-size: 0.8rem;
+}
+
+.order__product {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+/* .order__product::after {
+  content: '';
+  position: absolute;
+  top: -0.5rem;
+  width: 100%;
+  height: 1px;
+  background-color: #999;
+} */
+
+.order__product::before {
+  content: '';
+  position: absolute;
+  bottom: -0.5rem;
+  width: 100%;
+  height: 1px;
+  background-color: #c2c2c2e8;
+}
+
+.order__product img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border: 1px solid #999;
+  background-color: #f2f2f2;
+  border-radius: 0.7rem;
+  padding: 1rem;
+  margin-right: 0.8rem;
+}
+
+.orderproduct__name {
+  font-size: 0.8rem;
+}
+
+.orderproduct__price {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 0.75rem;
+}
+
+.order__initialprice {
+  color: #999;
+}
+
+.other__details {
+  margin-top: 2rem;
+}
+
+.other__details h1 {
+  font-size: 2rem;
+  margin-bottom: 1.2rem;
+}
+
+.other__contacts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.other__contacts h5 {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.other__contacts p {
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+.subtotal__div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subtotal__label {
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.subtotal__money {
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+
+</style>
+
+<section class="orderdetail__wrapper">
+    <p class="order__date">Order date: {{ order_confirm.created_at|date:"F d,Y:H:i" }}</p>
+    <p class="order__number">Order number: <span>{{ order_confirm.order_id }}</span></p>
+    <p class="order__status">Order Status: <span>Delivery State</span></p>
+    <p class="payment__type">Payment Type: {{ order_confirm.payment_method }}</p>
+    <hr />
+    {% for orderitem in order_items %}
+    <div class="order__product">
+        <div class="cart__item__div">
+            <div class="mb-4">
+                <img src="{{ orderitem.product.product_image.url}}" alt="{{orderitem.product.name}}">
+            </div>
+            <div>
+                <h4>{{ orderitem.product.name|truncatechars:50 }}</h4>
+                <p>QTY: {{ orderitem.quantity }}</p>
+                {% if orderitem.size %}
+                <p>Size: {{ orderitem.size }}</p>
+                {% endif %}
+                <p>Sub Total: GH₵{{ orderitem.subtotal }}</p>
+            </div>
+        </div>
+        <hr />
+    </div>
+    {% endfor %}
+    <div class="other__details">
+        <h1>Delivery</h1>
+        <div class="other__contacts">
+            <div>
+                <h5>Shipping Address</h5>
+                <p>{{order_confirm.user.customer.address}}</p>
+            </div>
+            <div>
+                <h5>Contact</h5>
+                <p>{{order_confirm.user.customer.phone_number}}</p>
+            </div>
+            <div>
+                <h5>Payment Method</h5>
+                <p>{{ order_confirm.payment_method }}</p>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="subtotal__div">
+        <div>
+            <h5>Order Summary</h5>
+            <p class="subtotal__label">Total</p>
+        </div>
+        <div class="subtotal__money">
+            GH₵{{order_confirm.total}}
+        </div>
+    </div>
+</section>

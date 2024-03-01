@@ -10,12 +10,13 @@ from faker import Faker
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
 from rest_framework import status
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 from store.text_message import send_text_message
 from store.paystack_request import get_payment_method
 from store.models import ShippingRate
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
 
 import os
 
@@ -120,25 +121,26 @@ class OrderConfirmView(APIView):
                 product = Product.objects.get(name=cart_item.product.name)
                 if (product.stock >= cart_item.quantity):
                     product.stock -= cart_item.quantity
+                    product.save()
                     if product.stock == 0:
                         product.is_in_stock = False
                         product.save()
-                        product.save()
-            self.handle_requests(address, phone_number, region, city, nearest_location,request, cart_items, cart)
+            self.handle_requests(address, phone_number, region, city, nearest_location,request, cart_items, cart, order)
         return Response({"message": "Thank you"})
 
-    def handle_requests(self,address, phone_number, region, city, nearest_location, request, cart_items, cart):
+    def handle_requests(self,address, phone_number, region, city, nearest_location, request, cart_items, cart, order):
         user = request.user
         # Delete the cart items
         cart_items.delete()
 
         # Delete the cart
         cart.delete()
+        OrderItem = order.orderitem_set.all()
 
         # Update the customer
         try:
             self.save_customer(user, address, phone_number, region, city, nearest_location)
-            self.send_admin_message_text()
+            self.send_admin_message_text(order, OrderItem)
             send_text_message(phone_number,'Your order is being confirmed, Thank your for shopping with us')
         except Exception as e:
             print(e)
@@ -172,16 +174,23 @@ class OrderConfirmView(APIView):
         to_email = to_email
         send_mail(subject, message, from_email, [to_email])
 
-    def send_admin_message_text(self):
+    def send_admin_message_text(orderself, order, OrderItem):
         admin_contacts = AdminContact.objects.all()
         for admin_contact in admin_contacts:
             admin_subject = 'New Order Received'
-            admin_message = f"A new order has been received."
+            # admin_message = f"A new order has been received."
             admin_from_email = 'info@remgeeshop.com'
             admin_to_email = admin_contact.email
             admin_to_contact = admin_contact.phone_number
+
+             # Render the HTML content using a template
+            html_content = render_to_string('../templates/store/email_message.html', {'order_confirm': order, 'order_items': OrderItem})
+
             # send email to admin email
-            send_mail(admin_subject, admin_message, admin_from_email, [admin_to_email])
+             # Create and send the email
+            email = EmailMessage(admin_subject, body=html_content, from_email=admin_from_email, to=[admin_to_email])
+            email.content_subtype = 'html'
+            email.send()
             # Send text message to admin phone number
             send_text_message(str(admin_to_contact), 'New order received',)
 
